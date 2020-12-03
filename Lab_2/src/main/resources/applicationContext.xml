@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="alarmClock" class="ru.superzloyuser.Clocks.AlarmClock">
+        <constructor-arg name="name" value="AlarmClock"/>
+        <constructor-arg name="seconds" value="10000"/>
+        <constructor-arg name="alarmCounter" value="62789"/>
+    </bean>
+
+    <bean id="clock" class="ru.superzloyuser.Clocks.Clock">
+        <constructor-arg name="name" value="AlarmClock"/>
+        <constructor-arg name="seconds" value="48020"/>
+    </bean>
+
+    <context:property-placeholder location="classpath:someProperties.properties"/>
+    <bean id="stopwatch" class="ru.superzloyuser.Clocks.Stopwatch">
+        <constructor-arg name="name" value="AlarmClock"/>
+        <constructor-arg name="seconds" value="${savedTime}"/>
+    </bean>
+
+
+    <bean id="user1" class="ru.superzloyuser.MechanismUser">
+        <constructor-arg name="name" value="User1"/>
+        <constructor-arg name="mechanism" ref="alarmClock"/>
+    </bean>
+
+    <bean id="user2" class="ru.superzloyuser.MechanismUser">
+        <constructor-arg name="name" value="User2"/>
+        <constructor-arg name="mechanism" ref="clock"/>
+    </bean>
+
+    <bean id="user3" class="ru.superzloyuser.MechanismUser">
+        <constructor-arg name="name" value="User3"/>
+        <constructor-arg name="mechanism" ref="stopwatch"/>
+    </bean>
+</beans>

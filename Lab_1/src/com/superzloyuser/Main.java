@@ -25,89 +25,92 @@ public class Main {
             System.out.println("Choose option:\n1 - Add\n2 - Delete\n3 - Clear\n4 - Show\n5 - Compare\n0 - Exit\n");
             Scanner in = new Scanner(System.in);
             System.out.print("Input a number: ");
-            var option = in.nextInt();
 
-            switch (option){
-                case 1:
-                    System.out.println("Input class name:");
-                    var className = in.next();
-                    switch (className){
-                        case "Animal":
-                            var tempSpecies = in.next();
-                            var tempTest = in.nextInt();
-                            testList.add(new Animal(tempSpecies, tempTest));
-                            break;
-                        case "Mammal":
-                            tempSpecies = in.next();
-                            tempTest = in.nextInt();
-                            var tempSubspecies = in.next();
-                            var tempSubTest = in.nextInt();
-                            testList.add(new Mammal(tempSpecies, tempTest, tempSubspecies, tempSubTest));
-                            break;
-                        case "ClovenHoofed":
-                            tempSpecies = in.next();
-                            tempTest = in.nextInt();
-                            tempSubspecies = in.next();
-                            tempSubTest = in.nextInt();
-                            var tempName = in.next();
-                            var tempLegs = in.nextInt();
-                            testList.add(new ClovenHoofed(tempSpecies, tempTest, tempSubspecies, tempSubTest, tempName, tempLegs));
-                            break;
-                        case "Bird":
-                            tempSpecies = in.next();
-                            tempTest = in.nextInt();
-                            tempSubspecies = in.next();
-                            tempSubTest = in.nextInt();
-                            testList.add(new Bird(tempSpecies, tempTest, tempSubspecies, tempSubTest));
-                            break;
-                        default:
-                            System.out.println("Invalid class name!");
-                            continue;
-                    }
-                    break;
-                case 2:
-                    System.out.println("Input element number:");
-                    var numForDel = in.nextInt();
-                    try {
-                        testList.remove(numForDel - 1);
-                    }
-                    catch (Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 3:
-                    testList.clear();
-                    break;
-                case 4:
-                    for (Animal animal : testList) {
-                        System.out.println((testList.indexOf(animal) + 1) + ") " + animal.toString());
-                    }
-                    break;
-                case 5:
-                    if (testList.size() > 1) {
-                        System.out.println("Enter the number of the first element: ");
-                        var firstEl = in.nextInt();
+            try {
 
-                        System.out.println("Enter the number of the second element: ");
-                        var secondEl = in.nextInt();
+                var option = in.nextInt();
 
-                        try {
-                            if (testList.get(firstEl).equals(testList.get(secondEl)))
-                                System.out.println("Objects are equivalent!");
-                            else
-                                System.out.println("Objects are not equivalent!");
+                switch (option) {
+                    case 1:
+                        System.out.println("Input class name:");
+                        var className = in.next();
+                        switch (className) {
+                            case "Animal":
+                                var tempSpecies = in.next();
+                                var tempTest = in.nextInt();
+                                testList.add(new Animal(tempSpecies, tempTest));
+                                break;
+                            case "Mammal":
+                                tempSpecies = in.next();
+                                tempTest = in.nextInt();
+                                var tempSubspecies = in.next();
+                                var tempSubTest = in.nextInt();
+                                testList.add(new Mammal(tempSpecies, tempTest, tempSubspecies, tempSubTest));
+                                break;
+                            case "ClovenHoofed":
+                                tempSpecies = in.next();
+                                tempTest = in.nextInt();
+                                tempSubspecies = in.next();
+                                tempSubTest = in.nextInt();
+                                var tempName = in.next();
+                                var tempLegs = in.nextInt();
+                                testList.add(new ClovenHoofed(tempSpecies, tempTest, tempSubspecies, tempSubTest, tempName, tempLegs));
+                                break;
+                            case "Bird":
+                                tempSpecies = in.next();
+                                tempTest = in.nextInt();
+                                tempSubspecies = in.next();
+                                tempSubTest = in.nextInt();
+                                testList.add(new Bird(tempSpecies, tempTest, tempSubspecies, tempSubTest));
+                                break;
+                            default:
+                                System.out.println("Invalid class name!");
+                                continue;
                         }
-                        catch (Exception e){
+                        break;
+                    case 2:
+                        System.out.println("Input element number:");
+                        var numForDel = in.nextInt();
+                        try {
+                            testList.remove(numForDel - 1);
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
-                    }
-                    break;
-                case 0:
-                    flag = false;
-                    break;
+                        break;
+                    case 3:
+                        testList.clear();
+                        break;
+                    case 4:
+                        for (Animal animal : testList) {
+                            System.out.println((testList.indexOf(animal) + 1) + ") " + animal.toString());
+                        }
+                        break;
+                    case 5:
+                        if (testList.size() > 1) {
+                            System.out.println("Enter the number of the first element: ");
+                            var firstEl = in.nextInt();
+
+                            System.out.println("Enter the number of the second element: ");
+                            var secondEl = in.nextInt();
+
+                            try {
+                                if (testList.get(firstEl).equals(testList.get(secondEl)))
+                                    System.out.println("Objects are equivalent!");
+                                else
+                                    System.out.println("Objects are not equivalent!");
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        break;
+                    case 0:
+                        flag = false;
+                        break;
+                }
             }
-
+            catch (Exception e){
+                System.out.println("Неверный формат ввода!\n");
+            }
         }
-
     }
 }
