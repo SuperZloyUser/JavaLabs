@@ -1,3 +1,9 @@
 .idea/
 out/
+*.iml
 
+Lab_2/.idea/
+Lab_2/target/
+
+Lab_3/.idea/
+Lab_3/target/

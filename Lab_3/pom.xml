@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.xorsiphus</groupId>
-  <artifactId>Lab_2</artifactId>
+  <artifactId>Lab_3</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>Lab_2 Maven Webapp</name>
+  <name>Lab_3 Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -44,10 +44,16 @@
       <artifactId>spring-context</artifactId>
       <version>5.2.9.RELEASE</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+      <version>2.3.4.RELEASE</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>Lab_2</finalName>
+    <finalName>Lab_3</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
