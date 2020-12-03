@@ -17,9 +17,12 @@ public class TestSpring
         AnnotationConfigApplicationContext context = new
                 AnnotationConfigApplicationContext(SpringConfig.class);
         BookJDBC bookJdbc = context.getBean("BookJDBC", BookJDBC.class);
-//        Book book = new Book("Crime and Punishment", "Dost", "Printer1337",
-//                250, new Date(1337123));
-        System.out.println(bookJdbc.findById(1));
+//        Book book = new Book("War and Peace", "Tolst", "Printer1337",
+//                1000, new Date(12345678));
+        for (var book : bookJdbc.findAll())
+        {
+            System.out.println(book);
+        }
 
         context.close();
     }
