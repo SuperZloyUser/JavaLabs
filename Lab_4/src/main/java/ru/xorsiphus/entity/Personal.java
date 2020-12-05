@@ -57,6 +57,7 @@ public class Personal implements IEntity
                         .readCycle(),
                 new PropertiesParser<Date>()
                         .hasMessage("Введите дату рождения(Day-Month-Year): ")
+                        .hasChecker(date -> date.getTime() >= new Date(0).getTime())
                         .hasParser(DateParser::parseDate)
                         .readCycle(),
                 new PropertiesParser<String>()

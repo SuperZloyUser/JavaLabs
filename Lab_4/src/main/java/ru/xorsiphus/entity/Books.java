@@ -1,13 +1,16 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.parser.DateParser;
+import ru.xorsiphus.parser.PropertiesParser;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class Book
+public class Books implements IEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
     @Column(nullable = false)
@@ -15,35 +18,63 @@ public class Book
     @Column(nullable = false)
     private String author;
     @Column
-    private String printEdition;
+    private String print_edition;
     @Column(nullable = false)
-    private int sizeInPages;
+    private int size_in_pages;
     @Column
-    private Date publishedOn;
+    private Date published_on;
 
-    public Book()
+    public Books()
     {
 
     }
 
-    public Book(String name, String author, String printEdition, int sizeInPages, Date publishedOn)
+    public Books(String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = 0;
         this.name = name;
         this.author = author;
-        this.sizeInPages = sizeInPages;
-        this.printEdition = printEdition;
-        this.publishedOn = publishedOn;
+        this.size_in_pages = size_in_pages;
+        this.print_edition = print_edition;
+        this.published_on = published_on;
     }
 
-    public Book(int id, String name, String author, String printEdition, int sizeInPages, Date publishedOn)
+    public Books(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = id;
         this.name = name;
         this.author = author;
-        this.sizeInPages = sizeInPages;
-        this.printEdition = printEdition;
-        this.publishedOn = publishedOn;
+        this.size_in_pages = size_in_pages;
+        this.print_edition = print_edition;
+        this.published_on = published_on;
+    }
+
+    public static Books parser()
+    {
+        return new Books(
+                new PropertiesParser<String>()
+                        .hasMessage("Название: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                new PropertiesParser<String>()
+                        .hasMessage("Автор: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                new PropertiesParser<String>()
+                        .hasMessage("Издание: ")
+                        .hasChecker(string -> !string.isBlank())
+                        .readCycle(),
+                new PropertiesParser<Integer>()
+                        .hasMessage("Размер(страниц): ")
+                        .hasChecker(number -> 0 < number && number < 10000)
+                        .hasParser(Integer::parseInt)
+                        .readCycle(),
+                new PropertiesParser<Date>()
+                        .hasMessage("Введите дату публикации(Day-Month-Year): ")
+                        .hasChecker(date -> date.getTime() >= new Date(0).getTime())
+                        .hasParser(DateParser::parseDate)
+                        .readCycle()
+        );
     }
 
     public int getId()
@@ -76,34 +107,34 @@ public class Book
         this.author = author;
     }
 
-    public int getSizeInPages()
+    public int getSize_in_pages()
     {
-        return sizeInPages;
+        return size_in_pages;
     }
 
-    public void setSizeInPages(int sizeInPages)
+    public void setSize_in_pages(int sizeInPages)
     {
-        this.sizeInPages = sizeInPages;
+        this.size_in_pages = sizeInPages;
     }
 
-    public String getPrintEdition()
+    public String getPrint_edition()
     {
-        return printEdition;
+        return print_edition;
     }
 
-    public void setPrintEdition(String printEdition)
+    public void setPrint_edition(String printEdition)
     {
-        this.printEdition = printEdition;
+        this.print_edition = printEdition;
     }
 
-    public Date getPublishedOn()
+    public Date getPublished_on()
     {
-        return publishedOn;
+        return published_on;
     }
 
-    public void setPublishedOn(Date publishedOn)
+    public void setPublished_on(Date publishedOn)
     {
-        this.publishedOn = publishedOn;
+        this.published_on = publishedOn;
     }
 
     @Override
@@ -113,8 +144,8 @@ public class Book
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
-                ", sizeInPages=" + sizeInPages +
-                ", printEdition='" + printEdition + '\'' +
+                ", sizeInPages=" + size_in_pages +
+                ", printEdition='" + print_edition + '\'' +
                 '}';
     }
 }

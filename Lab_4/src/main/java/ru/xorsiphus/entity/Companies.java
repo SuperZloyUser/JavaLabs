@@ -44,6 +44,7 @@ public class Companies implements IEntity
                         .readCycle(),
                 new PropertiesParser<Date>()
                         .hasMessage("Введите дату основания(Day-Month-Year): ")
+                        .hasChecker(date -> date.getTime() >= new Date(0).getTime())
                         .hasParser(DateParser::parseDate)
                         .readCycle()
         );

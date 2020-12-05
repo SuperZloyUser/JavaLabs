@@ -1,4 +1,4 @@
-package ru.xorsiphus;
+package ru.xorsiphus.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration("springConfig")
 @ComponentScan("ru.xorsiphus.dao")
 @PropertySource("classpath:application.properties")
+@EnableJpaRepositories("ru.xorsiphus.dao")
 @EnableTransactionManagement
-@EnableJpaRepositories
 public class SpringConfig {
 
     @Autowired

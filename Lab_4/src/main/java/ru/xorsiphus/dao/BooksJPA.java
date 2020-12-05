@@ -8,8 +8,8 @@ import ru.xorsiphus.entity.Books;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("bookJPA")
-public interface BookJPA extends JpaRepository<Books, Integer>, IBookDAO
+@Repository("booksJPA")
+public interface BooksJPA extends JpaRepository<Books, Integer>, IBookDAO
 {
     List<Books> findByAuthor(String type);
 

@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.xorsiphus.configuration.SpringConfig;
-import ru.xorsiphus.dao.BooksJDBC;
 import ru.xorsiphus.dao.BooksJPA;
 import ru.xorsiphus.dao.IBookDAO;
 import ru.xorsiphus.entity.Books;
+import ru.xorsiphus.entity.IEntity;
 import ru.xorsiphus.parser.PropertiesParser;
 
 
@@ -16,7 +16,7 @@ import ru.xorsiphus.parser.PropertiesParser;
 public class ProgramSecondDB implements CommandLineRunner
 {
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private IBookDAO bookDAO;
+    private IBookDAO iEntityDAO;
 
     public static void main(String[] args)
     {
@@ -25,13 +25,7 @@ public class ProgramSecondDB implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        bookDAO = new PropertiesParser<Integer>()
-                .hasMessage("1 - JdbcTemplate, 2 - JpaRepository: ")
-                .hasChecker(number -> 1 <= number && number <= 2)
-                .hasParser(Integer::parseInt)
-                .readCycle() == 1
-                ? context.getBean("booksJDBC", BooksJDBC.class)
-                : context.getBean("booksJPA", BooksJPA.class);
+        iEntityDAO = context.getBean("iEntityJPA", BooksJPA.class);
 
         System.out.println("1 - Ввести поля сущности и добавить её в таблицу БД");
         System.out.println("2 - Вывести все записи из таблицы БД");
@@ -47,39 +41,39 @@ public class ProgramSecondDB implements CommandLineRunner
                     .hasParser(Integer::parseInt)
                     .hasChecker(number -> 0 <= number && number <= 6)
                     .readCycle()) {
-                case 1 -> bookDAO
+                case 1 -> iEntityDAO
                         .add(Books.parser());
-                case 2 -> bookDAO
+                case 2 -> iEntityDAO
                         .findAll()
                         .forEach(System.out::println);
-                case 3 -> bookDAO
+                case 3 -> iEntityDAO
                         .findById(new PropertiesParser<Integer>()
                                 .hasMessage("Введите Id для редактирования: ")
                                 .hasChecker(id -> id > 0)
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.updateById(furniture.getId(), Books.parser()),
+                                furniture -> iEntityDAO.updateById(furniture.getId(), Books.parser()),
                                 () -> System.out.println("Нет такой записи")
                         );
-                case 4 -> bookDAO
+                case 4 -> iEntityDAO
                         .findById(new PropertiesParser<Integer>()
                                 .hasMessage("Введите Id для удаления: ")
                                 .hasChecker(id -> id > 0)
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.removeById(furniture.getId()),
+                                furniture -> iEntityDAO.removeById(furniture.getId()),
                                 () -> System.out.println("Нет такой записи")
                         );
-                case 5 -> bookDAO
+                case 5 -> iEntityDAO
                         .findByAuthor(new PropertiesParser<String>()
                                 .hasMessage("Введите тип для поиска: ")
                                 .hasChecker(string -> !string.isBlank())
                                 .readCycle()
                         )
                         .forEach(System.out::println);
-                case 6 -> bookDAO
+                case 6 -> iEntityDAO
                         .findById(new PropertiesParser<Integer>()
                                 .hasMessage("Введите Id записи: ")
                                 .hasChecker(id -> id > 0)
@@ -95,4 +89,13 @@ public class ProgramSecondDB implements CommandLineRunner
             }
         }
     }
+
+//    public IEntity entityChooser()
+//    {
+//        new PropertiesParser<String>()
+//                .hasMessage("Введите номер команды: ")
+//                .hasParser(Integer::parseInt)
+//                .hasChecker(number -> 0 <= number && number <= 6)
+//                .readCycle();
+//    }
 }
