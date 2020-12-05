@@ -49,7 +49,7 @@ public class Books implements IEntity
         this.published_on = published_on;
     }
 
-    public static Books parser()
+    public Books parser()
     {
         return new Books(
                 new PropertiesParser<String>()

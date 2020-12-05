@@ -35,7 +35,7 @@ public class Tickets implements IEntity
         this.film_id = film_id;
     }
 
-    public static IEntity parser()
+    public IEntity parser()
     {
         return new Tickets(
                 new PropertiesParser<Integer>()
@@ -51,11 +51,13 @@ public class Tickets implements IEntity
         );
     }
 
+    @Override
     public int getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;

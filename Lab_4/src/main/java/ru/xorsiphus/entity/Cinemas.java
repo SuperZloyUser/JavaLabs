@@ -44,7 +44,7 @@ public class Cinemas implements IEntity
         this.shared_film = shared_film;
     }
 
-    public static IEntity parser()
+    public IEntity parser()
     {
         return new Cinemas(
                 new PropertiesParser<String>()
@@ -67,11 +67,13 @@ public class Cinemas implements IEntity
         );
     }
 
+    @Override
     public int getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;

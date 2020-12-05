@@ -3,8 +3,9 @@ package ru.xorsiphus.entity;
 
 public interface IEntity
 {
-    static IEntity parser()
-    {
-        return null;
-    }
+    IEntity parser();
+
+    int getId();
+
+    void setId(int id);
 }

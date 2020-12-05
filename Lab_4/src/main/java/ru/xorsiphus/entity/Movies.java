@@ -43,7 +43,7 @@ public class Movies implements IEntity
         this.genre = genre;
     }
 
-    public static IEntity parser()
+    public IEntity parser()
     {
         return new Movies(
                 new PropertiesParser<Integer>()
@@ -67,11 +67,13 @@ public class Movies implements IEntity
         );
     }
 
+    @Override
     public int getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;

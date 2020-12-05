@@ -48,7 +48,7 @@ public class Program implements CommandLineRunner
                     .hasChecker(number -> 0 <= number && number <= 6)
                     .readCycle()) {
                 case 1 -> bookDAO
-                        .add(Books.parser());
+                        .add(new Books().parser());
                 case 2 -> bookDAO
                         .findAll()
                         .forEach(System.out::println);
@@ -59,7 +59,7 @@ public class Program implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.updateById(furniture.getId(), Books.parser()),
+                                books -> bookDAO.updateById(books.getId(), books.parser()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> bookDAO
@@ -69,7 +69,7 @@ public class Program implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.removeById(furniture.getId()),
+                                books -> bookDAO.removeById(books.getId()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 5 -> bookDAO
