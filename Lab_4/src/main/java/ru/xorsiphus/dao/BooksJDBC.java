@@ -10,8 +10,8 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
-@Component("BookJDBC")
-public class BookJDBC implements IBookDAO
+@Component("booksJDBC")
+public class BooksJDBC implements IBookDAO
 {
     private JdbcTemplate jdbcTemplate;
 

@@ -32,10 +32,13 @@ public class DateParser
             dateStr = parser.parse(s);
         } catch (ParseException e)
         {
-            dateStr = new Date(0);
             System.out.println(e.getMessage());
-        }
+            dateStr = new PropertiesParser<java.sql.Date>()
+                    .hasMessage("Введите дату публикации(Day-Month-Year): ")
+                    .hasParser(DateParser::parseDate)
+                    .readCycle();
 
+        }
         return new java.sql.Date(dateStr.getTime());
     }
 }
