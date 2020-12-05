@@ -1,12 +1,15 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+@Entity(name = "companies")
+@Table(name = "companies")
 public class Companies implements IEntity
 {
     @Id
@@ -35,7 +38,7 @@ public class Companies implements IEntity
         this.date = date;
     }
 
-    public IEntity parser()
+    public static IEntity parser()
     {
         return new Companies(
                 new PropertiesParser<String>()
@@ -48,6 +51,16 @@ public class Companies implements IEntity
                         .hasParser(DateParser::parseDate)
                         .readCycle()
         );
+    }
+
+    public String getEntityRepositoryClassName()
+    {
+        return "cinemasRepository";
+    }
+
+    public AbstractService getEntityClass()
+    {
+        return new CinemasServiceImpl();
     }
 
     @Override

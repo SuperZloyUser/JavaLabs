@@ -1,13 +1,13 @@
 package ru.xorsiphus.entity;
 
-
-import ru.xorsiphus.parser.DateParser;
+import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
-import java.sql.Date;
 
-@Entity
+@Entity(name = "cinemas")
+@Table(name = "cinemas")
 public class Cinemas implements IEntity
 {
     @Id
@@ -44,7 +44,17 @@ public class Cinemas implements IEntity
         this.shared_film = shared_film;
     }
 
-    public IEntity parser()
+    public String getEntityRepositoryClassName()
+    {
+        return "cinemasRepository";
+    }
+
+    public AbstractService getEntityClass()
+    {
+        return new CinemasServiceImpl();
+    }
+
+    public static IEntity parser()
     {
         return new Cinemas(
                 new PropertiesParser<String>()

@@ -1,4 +1,4 @@
-package ru.xorsiphus.dao.second.db;
+package ru.xorsiphus.dao.second.db.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;

@@ -9,6 +9,7 @@ import ru.xorsiphus.dao.BooksJDBC;
 import ru.xorsiphus.dao.BooksJPA;
 import ru.xorsiphus.dao.IBookDAO;
 import ru.xorsiphus.entity.Books;
+import ru.xorsiphus.entity.IEntity;
 import ru.xorsiphus.parser.PropertiesParser;
 
 

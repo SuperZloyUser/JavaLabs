@@ -1,5 +1,6 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.dao.second.db.services.AbstractService;
 
 public interface IEntity
 {
@@ -11,4 +12,8 @@ public interface IEntity
     int getId();
 
     void setId(int id);
+
+    String getEntityRepositoryClassName();
+
+    AbstractService getEntityClass();
 }

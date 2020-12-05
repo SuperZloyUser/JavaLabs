@@ -8,6 +8,7 @@ public class EntityParser
     {
         return switch (s)
                 {
+                    case "Exit" -> null;
                     case "Cinemas"-> new Cinemas();
                     case "Companies" -> new Companies();
                     case "Movies" -> new Movies();

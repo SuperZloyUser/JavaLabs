@@ -1,12 +1,17 @@
 package ru.xorsiphus.entity;
 
+import org.springframework.data.annotation.TypeAlias;
+import ru.xorsiphus.dao.BooksJPA;
+import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+@Entity(name = "books")
+@Table(name = "books")
 public class Books implements IEntity
 {
     @Id
@@ -75,6 +80,16 @@ public class Books implements IEntity
                         .hasParser(DateParser::parseDate)
                         .readCycle()
         );
+    }
+
+    public String getEntityRepositoryClassName()
+    {
+        return "booksJPA";
+    }
+
+    public AbstractService getEntityClass()
+    {
+        return new CinemasServiceImpl();
     }
 
     public int getId()

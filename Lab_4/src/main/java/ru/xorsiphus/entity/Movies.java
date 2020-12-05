@@ -1,12 +1,15 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+@Entity(name = "movies")
+@Table(name = "movies")
 public class Movies implements IEntity
 {
     @Id
@@ -43,7 +46,7 @@ public class Movies implements IEntity
         this.genre = genre;
     }
 
-    public IEntity parser()
+    public static IEntity parser()
     {
         return new Movies(
                 new PropertiesParser<Integer>()
@@ -65,6 +68,16 @@ public class Movies implements IEntity
                         .hasChecker(string -> !string.isBlank())
                         .readCycle()
         );
+    }
+
+    public String getEntityRepositoryClassName()
+    {
+        return "cinemasRepository";
+    }
+
+    public AbstractService getEntityClass()
+    {
+        return new CinemasServiceImpl();
     }
 
     @Override

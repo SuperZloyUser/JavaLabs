@@ -1,10 +1,13 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "tickets")
+@Table(name = "tickets")
 public class Tickets implements IEntity
 {
     @Id
@@ -33,7 +36,7 @@ public class Tickets implements IEntity
         this.film_id = film_id;
     }
 
-    public IEntity parser()
+    public static IEntity parser()
     {
         return new Tickets(
                 new PropertiesParser<Integer>()
@@ -47,6 +50,16 @@ public class Tickets implements IEntity
                         .hasParser(Integer::parseInt)
                         .readCycle()
         );
+    }
+
+    public String getEntityRepositoryClassName()
+    {
+        return "cinemasRepository";
+    }
+
+    public AbstractService getEntityClass()
+    {
+        return new CinemasServiceImpl();
     }
 
     @Override
