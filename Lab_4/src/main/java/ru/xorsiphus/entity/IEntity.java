@@ -7,4 +7,8 @@ public interface IEntity
     {
         return null;
     }
+
+    int getId();
+
+    void setId(int id);
 }

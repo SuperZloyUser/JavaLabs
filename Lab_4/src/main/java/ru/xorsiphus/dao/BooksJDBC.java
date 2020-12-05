@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component("booksJDBC")
-public class BooksJDBC implements IBookDAO
+public class BooksJDBC implements IBookDAO<Books>
 {
     private JdbcTemplate jdbcTemplate;
 
@@ -49,7 +49,7 @@ public class BooksJDBC implements IBookDAO
     }
 
     @Override
-    public void add(Books books)
+    public void insert(Books books)
     {
         jdbcTemplate.update("INSERT INTO books (name, author, print_edition, size_in_pages, published_on) " +
                         "VALUES (?, ?, ?, ?, ?);", books.getName(), books.getAuthor(), books.getPrint_edition(),

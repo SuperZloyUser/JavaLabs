@@ -16,7 +16,7 @@ import ru.xorsiphus.parser.PropertiesParser;
 public class Program implements CommandLineRunner
 {
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private IBookDAO bookDAO;
+    private IBookDAO<Books> bookDAO;
 
     public static void main(String[] args)
     {
@@ -24,7 +24,7 @@ public class Program implements CommandLineRunner
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String[] args) throws Exception {
         bookDAO = new PropertiesParser<Integer>()
                 .hasMessage("1 - JdbcTemplate, 2 - JpaRepository: ")
                 .hasChecker(number -> 1 <= number && number <= 2)
@@ -48,7 +48,7 @@ public class Program implements CommandLineRunner
                     .hasChecker(number -> 0 <= number && number <= 6)
                     .readCycle()) {
                 case 1 -> bookDAO
-                        .add(Books.parser());
+                        .insert(Books.parser());
                 case 2 -> bookDAO
                         .findAll()
                         .forEach(System.out::println);
@@ -59,7 +59,7 @@ public class Program implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.updateById(furniture.getId(), Books.parser()),
+                                entity -> bookDAO.updateById(entity.getId(), Books.parser()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> bookDAO
@@ -69,7 +69,7 @@ public class Program implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> bookDAO.removeById(furniture.getId()),
+                                entity -> bookDAO.removeById(entity.getId()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 5 -> bookDAO

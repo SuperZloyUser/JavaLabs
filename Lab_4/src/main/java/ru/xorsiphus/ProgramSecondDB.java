@@ -5,10 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.xorsiphus.configuration.SpringConfig;
-import ru.xorsiphus.dao.BooksJPA;
-import ru.xorsiphus.dao.IBookDAO;
-import ru.xorsiphus.entity.Books;
-import ru.xorsiphus.entity.IEntity;
+import ru.xorsiphus.dao.second.db.CinemasRepository;
+import ru.xorsiphus.entity.Cinemas;
 import ru.xorsiphus.parser.PropertiesParser;
 
 
@@ -16,7 +14,7 @@ import ru.xorsiphus.parser.PropertiesParser;
 public class ProgramSecondDB implements CommandLineRunner
 {
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private IBookDAO iEntityDAO;
+    private CinemasRepository iEntityDAO;
 
     public static void main(String[] args)
     {
@@ -24,15 +22,15 @@ public class ProgramSecondDB implements CommandLineRunner
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        iEntityDAO = context.getBean("iEntityJPA", BooksJPA.class);
+    public void run(String[] args) throws Exception
+    {
+        iEntityDAO = context.getBean("cinemasRepository", CinemasRepository.class);
 
         System.out.println("1 - Ввести поля сущности и добавить её в таблицу БД");
         System.out.println("2 - Вывести все записи из таблицы БД");
         System.out.println("3 - Редактировать запись таблицы БД по Id");
         System.out.println("4 - Удалить запись по Id");
-        System.out.println("5 - Осуществить поиск по типу");
-        System.out.println("6 - Вывести запись из таблицы БД по Id");
+        System.out.println("5 - Вывести запись из таблицы БД по Id");
         System.out.println("0 - Выход из программы");
 
         while (true) {
@@ -42,7 +40,7 @@ public class ProgramSecondDB implements CommandLineRunner
                     .hasChecker(number -> 0 <= number && number <= 6)
                     .readCycle()) {
                 case 1 -> iEntityDAO
-                        .add(Books.parser());
+                        .insert((Cinemas) Cinemas.parser());
                 case 2 -> iEntityDAO
                         .findAll()
                         .forEach(System.out::println);
@@ -53,7 +51,7 @@ public class ProgramSecondDB implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> iEntityDAO.updateById(furniture.getId(), Books.parser()),
+                                furniture -> iEntityDAO.updateById(furniture.getId(), (Cinemas) Cinemas.parser()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> iEntityDAO
@@ -67,13 +65,6 @@ public class ProgramSecondDB implements CommandLineRunner
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 5 -> iEntityDAO
-                        .findByAuthor(new PropertiesParser<String>()
-                                .hasMessage("Введите тип для поиска: ")
-                                .hasChecker(string -> !string.isBlank())
-                                .readCycle()
-                        )
-                        .forEach(System.out::println);
-                case 6 -> iEntityDAO
                         .findById(new PropertiesParser<Integer>()
                                 .hasMessage("Введите Id записи: ")
                                 .hasChecker(id -> id > 0)
