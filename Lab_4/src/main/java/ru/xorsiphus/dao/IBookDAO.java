@@ -1,16 +1,16 @@
 package ru.xorsiphus.dao;
 
-import ru.xorsiphus.entity.Book;
+import ru.xorsiphus.entity.Books;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IBookDAO
 {
-    List<Book> findAll();
-    List<Book> findByAuthor(String author);
-    Optional<Book> findById(int id);
-    void updateById(int id, Book book);
-    void add(Book book);
+    List<Books> findAll();
+    List<Books> findByAuthor(String author);
+    Optional<Books> findById(int id);
+    void updateById(int id, Books books);
+    void add(Books books);
     void removeById(int id);
 }

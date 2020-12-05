@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.xorsiphus.entity.Book;
+import ru.xorsiphus.entity.Books;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -21,39 +21,39 @@ public class BookJDBC implements IBookDAO
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Book> findAll()
+    public List<Books> findAll()
     {
-        return jdbcTemplate.query("select * from books;", new BeanPropertyRowMapper<>(Book.class));
+        return jdbcTemplate.query("select * from books;", new BeanPropertyRowMapper<>(Books.class));
     }
 
     @Override
-    public List<Book> findByAuthor(String author)
+    public List<Books> findByAuthor(String author)
     {
         return jdbcTemplate.query("SELECT * FROM books WHERE author = ?;",
-                new Object[]{author}, new BeanPropertyRowMapper<>(Book.class));
+                new Object[]{author}, new BeanPropertyRowMapper<>(Books.class));
     }
 
     @Override
-    public Optional<Book> findById(int id)
+    public Optional<Books> findById(int id)
     {
         return jdbcTemplate.query("SELECT * FROM books WHERE id = ?;",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Book.class)).stream().findFirst();
+                new Object[]{id}, new BeanPropertyRowMapper<>(Books.class)).stream().findFirst();
     }
 
     @Override
-    public void updateById(int id, Book book)
+    public void updateById(int id, Books books)
     {
         jdbcTemplate.update("UPDATE books SET name = ?, author = ?, print_edition = ?, size_in_pages = ?," +
-                        "published_on = ? WHERE id = ?;", book.getName(), book.getAuthor(), book.getPrintEdition(),
-        book.getSizeInPages(), book.getPublishedOn(), book.getId());
+                        "published_on = ? WHERE id = ?;", books.getName(), books.getAuthor(), books.getPrint_edition(),
+        books.getSize_in_pages(), books.getPublished_on(), books.getId());
     }
 
     @Override
-    public void add(Book book)
+    public void add(Books books)
     {
         jdbcTemplate.update("INSERT INTO books (name, author, print_edition, size_in_pages, published_on) " +
-                        "VALUES (?, ?, ?, ?, ?);", book.getName(), book.getAuthor(), book.getPrintEdition(),
-                book.getSizeInPages(), book.getPublishedOn());
+                        "VALUES (?, ?, ?, ?, ?);", books.getName(), books.getAuthor(), books.getPrint_edition(),
+                books.getSize_in_pages(), books.getPublished_on());
     }
 
     @Override
