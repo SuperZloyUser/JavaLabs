@@ -43,7 +43,7 @@ public class Personal implements IEntity
         this.position = position;
     }
 
-    public static IEntity parser()
+    public IEntity parser()
     {
         return new Personal(
                 new PropertiesParser<Integer>()
@@ -67,11 +67,13 @@ public class Personal implements IEntity
         );
     }
 
+    @Override
     public int getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;

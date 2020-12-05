@@ -37,7 +37,6 @@ public class DateParser
                     .hasMessage("Введите дату публикации(Day-Month-Year): ")
                     .hasParser(DateParser::parseDate)
                     .readCycle();
-
         }
         return new java.sql.Date(dateStr.getTime());
     }

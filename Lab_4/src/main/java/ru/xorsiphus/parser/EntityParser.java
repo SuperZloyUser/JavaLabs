@@ -8,12 +8,16 @@ public class EntityParser
     {
         return switch (s)
                 {
-                    case "Cinemas" -> new Cinemas();
+                    case "Cinemas"-> new Cinemas();
                     case "Companies" -> new Companies();
                     case "Movies" -> new Movies();
                     case "Personal" -> new Personal();
                     case "Tickets" -> new Tickets();
-                    default -> throw new NumberFormatException();
+                    default ->
+                        new PropertiesParser<IEntity>()
+                                .hasMessage("Неверная сущность, введите новую: ")
+                                .hasParser(EntityParser::parseEntity)
+                                .readCycle();
                 };
     }
 }

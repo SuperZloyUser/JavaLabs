@@ -34,6 +34,8 @@ public class ProgramSecondDB implements CommandLineRunner
         System.out.println("0 - Выход из программы");
 
         while (true) {
+            IEntity entity = entityChooser();
+
             switch (new PropertiesParser<Integer>()
                     .hasMessage("Введите номер команды: ")
                     .hasParser(Integer::parseInt)
@@ -51,7 +53,7 @@ public class ProgramSecondDB implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> iEntityDAO.updateById(furniture.getId(), (Cinemas) Cinemas.parser()),
+                                nEntity -> iEntityDAO.updateById(nEntity.getId(), nEntity.parser()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 4 -> iEntityDAO
@@ -61,7 +63,7 @@ public class ProgramSecondDB implements CommandLineRunner
                                 .hasParser(Integer::parseInt)
                                 .readCycle())
                         .ifPresentOrElse(
-                                furniture -> iEntityDAO.removeById(furniture.getId()),
+                                nEntity -> iEntityDAO.removeById(nEntity.getId()),
                                 () -> System.out.println("Нет такой записи")
                         );
                 case 5 -> iEntityDAO
@@ -81,12 +83,11 @@ public class ProgramSecondDB implements CommandLineRunner
         }
     }
 
-//    public IEntity entityChooser()
-//    {
-//        new PropertiesParser<String>()
-//                .hasMessage("Введите номер команды: ")
-//                .hasParser(Integer::parseInt)
-//                .hasChecker(number -> 0 <= number && number <= 6)
-//                .readCycle();
-//    }
+    public IEntity entityChooser()
+    {
+        return new PropertiesParser<IEntity>()
+                .hasMessage("Введите сущность: ")
+                .hasParser(EntityParser::parseEntity)
+                .readCycle();
+    }
 }

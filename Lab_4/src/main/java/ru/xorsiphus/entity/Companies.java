@@ -35,7 +35,7 @@ public class Companies implements IEntity
         this.date = date;
     }
 
-    public static IEntity parser()
+    public IEntity parser()
     {
         return new Companies(
                 new PropertiesParser<String>()
@@ -50,11 +50,13 @@ public class Companies implements IEntity
         );
     }
 
+    @Override
     public int getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;
