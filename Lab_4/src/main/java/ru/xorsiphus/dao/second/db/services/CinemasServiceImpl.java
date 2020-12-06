@@ -2,9 +2,8 @@ package ru.xorsiphus.dao.second.db.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import ru.xorsiphus.dao.second.db.repositories.BaseRepository;
 import ru.xorsiphus.dao.second.db.repositories.CinemasRepository;
 import ru.xorsiphus.entity.Cinemas;
 import ru.xorsiphus.entity.IEntity;
@@ -12,12 +11,11 @@ import ru.xorsiphus.entity.IEntity;
 import java.util.List;
 import java.util.Optional;
 
-@Service("cinemasService")
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+//@Service("cinemasService")
 public class CinemasServiceImpl implements AbstractService
 {
-    @Autowired
-    @Qualifier("cinemasRepository")
+//    @Autowired
+//    @Qualifier("cinemasRep")
     private CinemasRepository cinemasRepository;
 
     public List<Cinemas> findAll()

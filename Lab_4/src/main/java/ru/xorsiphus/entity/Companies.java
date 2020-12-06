@@ -55,7 +55,7 @@ public class Companies implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "cinemasRepository";
+        return "companiesRepository";
     }
 
     public AbstractService getEntityClass()

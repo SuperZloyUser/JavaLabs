@@ -72,7 +72,7 @@ public class Movies implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "cinemasRepository";
+        return "moviesRepository";
     }
 
     public AbstractService getEntityClass()

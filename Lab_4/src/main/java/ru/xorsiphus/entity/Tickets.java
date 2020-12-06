@@ -54,7 +54,7 @@ public class Tickets implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "cinemasRepository";
+        return "ticketsRepository";
     }
 
     public AbstractService getEntityClass()

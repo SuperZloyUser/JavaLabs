@@ -1,6 +1,7 @@
 package ru.xorsiphus.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.*;
 import ru.xorsiphus.MechanismUser;
 import ru.xorsiphus.clocks.AlarmClock;
@@ -41,5 +42,9 @@ public class MechanismConfig
 
     @Bean(value = "user3", initMethod = "turnOn", destroyMethod = "turnOff")
     public MechanismUser user3() { return new MechanismUser("User3", stopwatch()); }
+
+    @Bean(value = "userProt", initMethod = "turnOn", destroyMethod = "turnOff")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public MechanismUser userProt(){ return new MechanismUser("userProt", clock()); }
 
 }

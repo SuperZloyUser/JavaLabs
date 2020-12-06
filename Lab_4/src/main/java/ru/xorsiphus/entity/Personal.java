@@ -72,7 +72,7 @@ public class Personal implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "cinemasRepository";
+        return "personalRepository";
     }
 
     public AbstractService getEntityClass()

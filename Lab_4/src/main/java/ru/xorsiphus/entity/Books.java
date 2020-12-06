@@ -2,6 +2,7 @@ package ru.xorsiphus.entity;
 
 import org.springframework.data.annotation.TypeAlias;
 import ru.xorsiphus.dao.BooksJPA;
+import ru.xorsiphus.dao.second.db.repositories.CinemasRepository;
 import ru.xorsiphus.dao.second.db.services.AbstractService;
 import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.DateParser;
