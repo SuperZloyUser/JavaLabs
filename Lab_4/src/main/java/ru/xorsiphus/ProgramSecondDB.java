@@ -96,7 +96,7 @@ public class ProgramSecondDB implements CommandLineRunner
     public IEntity entityChooser()
     {
         return new PropertiesParser<IEntity>()
-                .hasMessage("Введите сущность: ")
+                .hasMessage("Введите сущность/Exit: ")
                 .hasParser(EntityParser::parseEntity)
                 .readCycle();
     }

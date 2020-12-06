@@ -10,9 +10,9 @@ public interface AbstractService
     List<? extends IEntity> findAll();
     Optional<? extends IEntity> findById(int id);
 
-    void updateById(int id, IEntity entity);
+    <T extends IEntity> void updateById(int id, T entity);
 
-    void insert(IEntity entity);
+    <T extends IEntity> void insert(T entity);
 
     void removeById(int id);
 }

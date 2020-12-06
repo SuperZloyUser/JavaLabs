@@ -1,7 +1,7 @@
 package ru.xorsiphus.entity;
 
 import ru.xorsiphus.dao.second.db.services.AbstractService;
-import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
+import ru.xorsiphus.dao.second.db.services.PersonalServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
@@ -77,7 +77,7 @@ public class Personal implements IEntity
 
     public AbstractService getEntityClass()
     {
-        return new CinemasServiceImpl();
+        return new PersonalServiceImpl();
     }
 
     @Override

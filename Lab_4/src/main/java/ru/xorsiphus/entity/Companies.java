@@ -1,7 +1,7 @@
 package ru.xorsiphus.entity;
 
 import ru.xorsiphus.dao.second.db.services.AbstractService;
-import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
+import ru.xorsiphus.dao.second.db.services.CompaniesServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
@@ -55,12 +55,12 @@ public class Companies implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "companiesRepository";
+        return "companiesService";
     }
 
     public AbstractService getEntityClass()
     {
-        return new CinemasServiceImpl();
+        return new CompaniesServiceImpl();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package ru.xorsiphus.entity;
 
 import ru.xorsiphus.dao.second.db.services.AbstractService;
-import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
+import ru.xorsiphus.dao.second.db.services.TicketsServiceImpl;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
@@ -59,7 +59,7 @@ public class Tickets implements IEntity
 
     public AbstractService getEntityClass()
     {
-        return new CinemasServiceImpl();
+        return new TicketsServiceImpl();
     }
 
     @Override

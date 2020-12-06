@@ -46,7 +46,7 @@ public class Cinemas implements IEntity
 
     public String getEntityRepositoryClassName()
     {
-        return "cinemasRepository";
+        return "cinemasService";
     }
 
     public AbstractService getEntityClass()
