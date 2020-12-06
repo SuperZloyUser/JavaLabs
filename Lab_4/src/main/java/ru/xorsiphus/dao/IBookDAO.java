@@ -1,7 +1,6 @@
 package ru.xorsiphus.dao;
 
 import org.springframework.data.repository.NoRepositoryBean;
-import ru.xorsiphus.entity.Books;
 import ru.xorsiphus.entity.IEntity;
 
 import java.util.List;

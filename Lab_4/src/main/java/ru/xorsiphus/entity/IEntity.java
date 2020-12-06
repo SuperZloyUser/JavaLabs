@@ -1,5 +1,6 @@
 package ru.xorsiphus.entity;
 
+import org.springframework.stereotype.Component;
 import ru.xorsiphus.dao.second.db.services.AbstractService;
 
 public interface IEntity
