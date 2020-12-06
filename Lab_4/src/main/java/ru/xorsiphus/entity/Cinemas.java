@@ -5,6 +5,8 @@ import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity(name = "cinemas")
 @Table(name = "cinemas")
@@ -14,14 +16,23 @@ public class Cinemas implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+    @OneToMany(mappedBy = "cinemas", fetch = FetchType.LAZY)
+    private Collection<Tickets> tickets;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String country;
+
     @Column(nullable = false)
     private String city;
+
     @Column(nullable = false)
     private int shared_film;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "shared_film", insertable = false, updatable = false)
+    private Movies movies;
 
     public Cinemas()
     {
@@ -87,6 +98,28 @@ public class Cinemas implements IEntity
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public Movies getMovies()
+    {
+        return movies;
+    }
+
+    public void setMovies(Movies movies)
+    {
+        this.movies = movies;
+    }
+
+    public Collection<Tickets> getTickets()
+    {
+        if (tickets == null)
+            tickets = new ArrayList<Tickets>();
+        return tickets;
+    }
+
+    public void setTickets(Collection<Tickets> tickets)
+    {
+        this.tickets = tickets;
     }
 
     public String getName()

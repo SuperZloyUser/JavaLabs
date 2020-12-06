@@ -1,11 +1,13 @@
 package ru.xorsiphus;
 
+import org.hibernate.SessionFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.xorsiphus.configuration.SpringConfig;
 import ru.xorsiphus.dao.second.db.services.AbstractService;
+import ru.xorsiphus.dao.second.db.services.TicketsServiceImpl;
 import ru.xorsiphus.entity.Cinemas;
 import ru.xorsiphus.entity.IEntity;
 import ru.xorsiphus.parser.EntityParser;
@@ -25,6 +27,16 @@ public class ProgramSecondDB implements CommandLineRunner
     @Override
     public void run(String[] args) throws Exception
     {
+        TicketsServiceImpl ticketsService = context.getBean("ticketsService", TicketsServiceImpl.class);
+
+        var temp = ticketsService.superJoin();
+
+        for (var ticket : temp)
+        {
+            System.out.println(ticket[0] + " - " + ticket[1]);
+        }
+
+
         while (true)
         {
             IEntity entity = entityChooser();
@@ -85,9 +97,7 @@ public class ProgramSecondDB implements CommandLineRunner
                                     System.out::println,
                                     () -> System.out.println("Нет такой записи")
                             );
-                    case 0 -> {
-                        return;
-                    }
+                    case 0 -> { return; }
             }
             }
         }

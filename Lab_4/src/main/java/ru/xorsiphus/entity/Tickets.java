@@ -14,10 +14,18 @@ public class Tickets implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+
     @Column(nullable = false, updatable = false)
     private int cinema_id;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cinema_id", insertable = false, updatable = false)
+    private Cinemas cinemas;
+
     @Column(nullable = false, updatable = false)
     private int film_id;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "film_id", insertable = false, updatable = false)
+    private Movies movies;
 
     public Tickets()
     {
@@ -72,6 +80,26 @@ public class Tickets implements IEntity
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public Cinemas getCinemas()
+    {
+        return cinemas;
+    }
+
+    public void setCinemas(Cinemas cinemas)
+    {
+        this.cinemas = cinemas;
+    }
+
+    public Movies getMovies()
+    {
+        return movies;
+    }
+
+    public void setMovies(Movies movies)
+    {
+        this.movies = movies;
     }
 
     public int getCinema_id()

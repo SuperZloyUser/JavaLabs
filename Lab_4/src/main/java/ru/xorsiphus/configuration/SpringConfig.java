@@ -1,7 +1,7 @@
 package ru.xorsiphus.configuration;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -27,14 +28,16 @@ public class SpringConfig {
     private Environment env;
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager()
+    {
         var txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory());
         return txManager;
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
+    public EntityManagerFactory entityManagerFactory()
+    {
         var vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
         var factory = new LocalContainerEntityManagerFactoryBean();
@@ -46,7 +49,16 @@ public class SpringConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
+    public SessionFactory localSessionFactory()
+    {
+        LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
+        builder.scanPackages("ru.xorsiphus");
+        return builder.buildSessionFactory();
+    }
+
+    @Bean
+    public DataSource dataSource()
+    {
         var dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("dataSource.driverClassName"));
         dataSource.setUrl(env.getProperty("dataSource.url"));

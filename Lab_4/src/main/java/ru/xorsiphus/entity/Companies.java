@@ -7,6 +7,8 @@ import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity(name = "companies")
 @Table(name = "companies")
@@ -16,8 +18,14 @@ public class Companies implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private Collection<Personal> personals;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private Collection<Movies> movies;
+
     @Column(nullable = false)
     private String name;
+
     @Column
     private Date date;
 
@@ -73,6 +81,30 @@ public class Companies implements IEntity
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public Collection<Personal> getPersonals()
+    {
+        if (personals == null)
+            personals = new ArrayList<Personal>();
+        return personals;
+    }
+
+    public void setPersonals(Collection<Personal> personals)
+    {
+        this.personals = personals;
+    }
+
+    public Collection<Movies> getMovies()
+    {
+        if (movies == null)
+            movies = new ArrayList<Movies>();
+        return movies;
+    }
+
+    public void setMovies(Collection<Movies> movies)
+    {
+        this.movies = movies;
     }
 
     public String getName()

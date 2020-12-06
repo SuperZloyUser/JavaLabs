@@ -7,6 +7,8 @@ import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity(name = "movies")
 @Table(name = "movies")
@@ -16,12 +18,23 @@ public class Movies implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+    @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY)
+    private Collection<Cinemas> cinemas;
+    @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY)
+    private Collection<Tickets> tickets;
+
     @Column(nullable = false, updatable = false)
     private int company_id;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
+    private Companies company;
+
     @Column(nullable = false)
     private String name;
+
     @Column()
     private Date date;
+
     @Column(nullable = false)
     private String genre;
 
@@ -90,6 +103,40 @@ public class Movies implements IEntity
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public Collection<Cinemas> getCinemas()
+    {
+        if (cinemas == null)
+            cinemas = new ArrayList<Cinemas>();
+        return cinemas;
+    }
+
+    public void setCinemas(Collection<Cinemas> cinemas)
+    {
+        this.cinemas = cinemas;
+    }
+
+    public Collection<Tickets> getTickets()
+    {
+        if (tickets == null)
+            tickets = new ArrayList<Tickets>();
+        return tickets;
+    }
+
+    public void setTickets(Collection<Tickets> tickets)
+    {
+        this.tickets = tickets;
+    }
+
+    public Companies getCompany()
+    {
+        return company;
+    }
+
+    public void setCompany(Companies company)
+    {
+        this.company = company;
     }
 
     public int getCompany_id()

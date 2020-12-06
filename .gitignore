@@ -1,6 +1,7 @@
 .idea/
 out/
 *.iml
+*.jpg
 
 Lab_2/.idea/
 Lab_2/target/

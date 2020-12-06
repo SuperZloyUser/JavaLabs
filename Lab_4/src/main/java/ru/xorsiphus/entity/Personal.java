@@ -16,12 +16,19 @@ public class Personal implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+
     @Column(nullable = false, updatable = false)
     private int company_id;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name="company_id", nullable = false, insertable = false, updatable = false)
+    private Companies company;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private Date b_date;
+
     @Column()
     private String position;
 
@@ -95,6 +102,16 @@ public class Personal implements IEntity
     public int getCompany_id()
     {
         return company_id;
+    }
+
+    public Companies getCompany()
+    {
+        return company;
+    }
+
+    public void setCompany(Companies company)
+    {
+        this.company = company;
     }
 
     public void setCompany_id(int company_id)
