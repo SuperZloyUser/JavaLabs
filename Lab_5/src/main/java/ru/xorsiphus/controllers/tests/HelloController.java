@@ -1,4 +1,4 @@
-package ru.xorsiphus.controllers;
+package ru.xorsiphus.controllers.tests;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

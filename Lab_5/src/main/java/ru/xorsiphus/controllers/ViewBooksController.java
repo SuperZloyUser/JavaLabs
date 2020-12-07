@@ -2,20 +2,23 @@ package ru.xorsiphus.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.xorsiphus.dao.services.BooksServiceImpl;
-import ru.xorsiphus.parser.forms.Id;
-
-import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/view")
+@RequestMapping("books")
 public class ViewBooksController
 {
+    private final BooksServiceImpl booksService;
+
+    public ViewBooksController(@Qualifier("booksServiceImpl")BooksServiceImpl booksService)
+    {
+        this.booksService = booksService;
+    }
+
+//    @GetMapping
+//    public
+
 //    private final BooksServiceImpl booksService;
 //
 //    public ViewBooksController(@Qualifier("booksServiceImpl") BooksServiceImpl booksService)
