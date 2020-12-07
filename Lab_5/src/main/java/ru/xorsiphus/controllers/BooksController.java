@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.xorsiphus.dao.services.BookServiceImpl;
 import ru.xorsiphus.entity.Book;
-import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.forms.FilterAuthor;
 
 import javax.validation.Valid;
@@ -42,17 +41,12 @@ public class BooksController
     }
 
     @PostMapping
-    public String create(@RequestParam(name="name") @Valid String name,
-                         @RequestParam(name="author") @Valid String author,
-                         @RequestParam(name="print_edition", required=false, defaultValue="Printer") String printEdition,
-                         @RequestParam(name="size_in_pages") @Valid int sizeInPages,
-                         @RequestParam(name="published_on", required=false, defaultValue="2-1-1970") String publishedOn,
-                         BindingResult bindingResult)
+    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult)
     {
         if (bindingResult.hasErrors())
             return "books/new";
-        var temp = new Book( name, author, printEdition, sizeInPages, DateParser.parseDate(publishedOn));
-        bookService.insert(temp);
+
+        bookService.insert(book);
         return "redirect:/books";
     }
 
@@ -70,7 +64,7 @@ public class BooksController
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") @Valid Book book, @PathVariable("id") int id, BindingResult bindingResult)
+    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") int id)
     {
         if (bindingResult.hasErrors())
             return "books/edit";
@@ -86,7 +80,7 @@ public class BooksController
     }
 
     @PostMapping("/filtered")
-    public String viewByFilter(@RequestParam String filter, Model model)
+    public String viewByFilter(@RequestParam("filter") String filter, Model model)
     {
         model.addAttribute("books", bookService.findByAuthor(filter));
         return "books/filtered";

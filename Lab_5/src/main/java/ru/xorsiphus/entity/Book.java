@@ -24,11 +24,13 @@ public class Book implements IEntity
     private String name;
 
     @NotNull(message = "Имя автора не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Некорректная длина имени автора")
     @Column(nullable = false)
     private String author;
 
 
     @Column
+    @Size(min = 2, max = 30, message = "Некорректная длина названия издания")
     private String print_edition;
 
     @NotNull(message = "Размер не должен быть пустым")

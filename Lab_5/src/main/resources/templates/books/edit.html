@@ -11,19 +11,19 @@
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name</div>
     <br/>
-    <label for="author">Enter автора:</label>
+    <label for="author">Введите автора:</label>
     <input type="text" th:field="*{author}" id="author"/>
     <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author</div>
     <br/>
-    <label for="print_edition">Enter издание:</label>
+    <label for="print_edition">Введите издание:</label>
     <input type="text" th:field="*{print_edition}" id="print_edition"/>
     <div style="color: red" th:if="${#fields.hasErrors('print_edition')}" th:errors="*{print_edition}">print_edition</div>
     <br/>
-    <label for="size_in_pages">Enter размер в страницах:</label>
+    <label for="size_in_pages">Введите размер в страницах:</label>
     <input type="text" th:field="*{size_in_pages}" id="size_in_pages"/>
     <div style="color: red" th:if="${#fields.hasErrors('size_in_pages')}" th:errors="*{size_in_pages}">size_in_pages</div>
     <br/>
-    <label for="published_on">Enter дату публикации:</label>
+    <label for="published_on">Введите дату публикации:</label>
     <input type="text" th:field="*{published_on}" id="published_on"/>
     <div style="color: red" th:if="${#fields.hasErrors('published_on')}" th:errors="*{published_on}">published_on</div>
     <br/><br/>
