@@ -2,7 +2,7 @@ package ru.xorsiphus.configuration;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
@@ -19,6 +19,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ru.xorsiphus.dao.repositories.BooksJPA;
+import ru.xorsiphus.dao.services.BooksServiceImpl;
 
 @Configuration("springConfig")
 @ComponentScan("ru.xorsiphus.controllers")
@@ -28,9 +30,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer
 {
-
     @Autowired
     private Environment env;
+
+    @Bean
+    public BooksServiceImpl booksService()
+    {
+        return new BooksServiceImpl();
+    }
 
     @Bean
     public PlatformTransactionManager transactionManager()
