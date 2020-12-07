@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository("bookJPA")
 public interface BooksJPA extends JpaRepository<Book, Integer>, IBookDAO<Book>
 {
+    List<Book> findAll();
+
     List<Book> findByAuthor(String type);
 
     Optional<Book> findById(int id);

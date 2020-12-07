@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Книга</title>
+    <title>Title</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr th:each="book : ${books}">
         <td data-th-text="${book.getId()}" ></td>
         <td data-th-text="${book.getName()}"></td>
         <td data-th-text="${book.getAuthor()}"></td>
@@ -29,20 +29,5 @@
     </tbody>
 </table>
 
-<a th:href="@{/books/{id}/edit(id=${book.getId()})}" th:text="Редактировать"></a>
-
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
-    <input type="submit" value="Удалить">
-</form>
-
 </body>
-<footer>
-    <hr>
-    <a href="/hello">Hello tests</a>
-    <p></p>
-    <p>Calculator ('sum'; '-'; '*'; '/')</p>
-    <p>/calculator?firstParam=2&secondParam=2&operation=sum</p>
-    <p></p>
-    <a href="/">Main</a>
-</footer>
 </html>

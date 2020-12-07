@@ -4,6 +4,9 @@ import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity(name = "book")
@@ -14,14 +17,26 @@ public class Book implements IEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+
+    @NotNull(message = "Имя не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Некорректная длина имени")
     @Column(nullable = false)
     private String name;
+
+    @NotNull(message = "Имя автора не должно быть пустым")
     @Column(nullable = false)
     private String author;
+
+
     @Column
     private String print_edition;
+
+    @NotNull(message = "Размер не должен быть пустым")
+    @Min(value = 1, message = "Некорректный размер книги")
     @Column(nullable = false)
     private int size_in_pages;
+
+
     @Column
     private Date published_on;
 

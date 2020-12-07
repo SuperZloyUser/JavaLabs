@@ -12,6 +12,23 @@
     <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}"></a>
 </div>
 
+<br/>
+
+<form th:method="POST" th:action="@{/books/filtered}" th:object="${filterAuthor}">
+    <label for="filter_author">Введите имя автора: </label>
+    <input type="text" th:value="*{filter}" id="filter_author"/>
+    <input type="submit" value="Отсортировать"/>
+</form>
+<!--<form th:method="POST" th:action="@{/books/filtered}" th:object="${book}">-->
+<!--    <label for="name">Введите название:</label>-->
+<!--    <input type="text" th:field="*{name}" id="name"/>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Отсортировать"/>-->
+<!--</form>-->
+
+<br/>
+<a href="/books/new">Добавить книгу</a>
+
 </body>
 <footer>
     <hr>
