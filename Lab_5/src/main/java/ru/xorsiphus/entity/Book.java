@@ -6,9 +6,9 @@ import ru.xorsiphus.parser.PropertiesParser;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "books")
+@Entity(name = "book")
 @Table(name = "books")
-public class Books implements IEntity
+public class Book implements IEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,12 @@ public class Books implements IEntity
     @Column
     private Date published_on;
 
-    public Books()
+    public Book()
     {
 
     }
 
-    public Books(String name, String author, String print_edition, int size_in_pages, Date published_on)
+    public Book(String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = 0;
         this.name = name;
@@ -40,7 +40,7 @@ public class Books implements IEntity
         this.published_on = published_on;
     }
 
-    public Books(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
+    public Book(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = id;
         this.name = name;
@@ -50,9 +50,9 @@ public class Books implements IEntity
         this.published_on = published_on;
     }
 
-    public static Books parser()
+    public static Book parser()
     {
-        return new Books(
+        return new Book(
                 new PropertiesParser<String>()
                         .hasMessage("Название: ")
                         .hasChecker(string -> !string.isBlank())

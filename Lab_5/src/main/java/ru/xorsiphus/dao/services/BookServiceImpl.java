@@ -4,37 +4,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.xorsiphus.dao.repositories.BooksJPA;
-import ru.xorsiphus.entity.Books;
+import ru.xorsiphus.entity.Book;
 import ru.xorsiphus.entity.IEntity;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service("booksServiceImpl")
-public class BooksServiceImpl implements AbstractService
+@Qualifier("bookService")
+@Service("bookServiceImpl")
+public class BookServiceImpl implements AbstractService
 {
-    @Autowired
-    @Qualifier("booksJPA")
-    private BooksJPA repository;
+    private final BooksJPA repository;
 
-    public List<Books> findAll()
+    public BookServiceImpl(@Qualifier("bookJPA") BooksJPA repository)
+    {
+        this.repository = repository;
+    }
+
+    public List<Book> findAll()
     {
         return repository.findAll();
     }
 
-    public Optional<Books> findById(int id)
+    public Optional<Book> findById(int id)
     {
         return repository.findById(id);
     }
 
     public <T extends IEntity> void updateById(int id, T entity)
     {
-        repository.updateById(id, (Books) entity);
+        repository.updateById(id, (Book) entity);
     }
 
     public <T extends IEntity> void insert(T entity)
     {
-        repository.insert((Books) entity);
+        repository.insert((Book) entity);
     }
 
     public void removeById(int id)

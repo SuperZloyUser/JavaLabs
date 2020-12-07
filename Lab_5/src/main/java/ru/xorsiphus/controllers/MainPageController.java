@@ -13,7 +13,7 @@ public class MainPageController
 {
     private final BooksJPA booksJPA;
 
-    public MainPageController(@Qualifier("booksJPA") BooksJPA booksJPA) {
+    public MainPageController(@Qualifier("bookJPA") BooksJPA booksJPA) {
         this.booksJPA = booksJPA;
     }
 
