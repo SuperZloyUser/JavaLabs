@@ -14,5 +14,7 @@ public interface AbstractService
 
     <T extends IEntity> void insert(T entity);
 
+    long count();
+
     void removeById(int id);
 }

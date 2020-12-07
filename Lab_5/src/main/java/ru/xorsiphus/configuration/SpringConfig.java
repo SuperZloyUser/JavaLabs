@@ -2,10 +2,14 @@ package ru.xorsiphus.configuration;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
 import javax.persistence.EntityManagerFactory;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -16,10 +20,17 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
-@Configuration("springConfig")
+import java.util.Arrays;
+
+@Configuration
 @ComponentScan("ru.xorsiphus.controllers")
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("ru.xorsiphus.dao")
@@ -27,8 +38,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer
 {
+    private final Environment env;
+    private final ApplicationContext applicationContext;
+
     @Autowired
-    private Environment env;
+    public SpringConfig(ApplicationContext applicationContext, Environment env) {
+        this.applicationContext = applicationContext;
+        this.env = env;
+    }
 
     @Bean
     public PlatformTransactionManager transactionManager()
@@ -71,4 +88,36 @@ public class SpringConfig implements WebMvcConfigurer
 
         return dataSource;
     }
+
+    @Bean
+    public FilterRegistrationBean hiddenHttpMethodFilter()
+    {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+        return filterRegistrationBean;
+    }
+
+//    @Bean
+//    public SpringResourceTemplateResolver templateResolver() {
+//        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+//        templateResolver.setApplicationContext(applicationContext);
+//        templateResolver.setPrefix("/resources/templates/");
+//        templateResolver.setSuffix(".html");
+//        return templateResolver;
+//    }
+//
+//    @Bean
+//    public SpringTemplateEngine templateEngine() {
+//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//        templateEngine.setTemplateResolver(templateResolver());
+//        templateEngine.setEnableSpringELCompiler(true);
+//        return templateEngine;
+//    }
+//
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+//        resolver.setTemplateEngine(templateEngine());
+//        registry.viewResolver(resolver);
+//    }
 }

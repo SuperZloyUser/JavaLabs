@@ -41,6 +41,11 @@ public class BookServiceImpl implements AbstractService
         repository.insert((Book) entity);
     }
 
+    public long count()
+    {
+        return repository.count();
+    }
+
     public void removeById(int id)
     {
         repository.removeById(id);
