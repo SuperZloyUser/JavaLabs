@@ -1,7 +1,6 @@
 .idea/
 out/
 Apache-Tomcat/
-vlad/
 *.iml
 *.jpg
 
@@ -16,5 +15,5 @@ Lab_4/target/
 
 
 Lab_5/.idea/
-Lab_5/target
+Lab_5/target/
 
