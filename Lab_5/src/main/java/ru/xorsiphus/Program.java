@@ -1,29 +1,18 @@
 package ru.xorsiphus;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.xorsiphus.configuration.SpringConfig;
-import ru.xorsiphus.dao.BooksJPA;
-import ru.xorsiphus.dao.IBookDAO;
-import ru.xorsiphus.entity.Books;
-import ru.xorsiphus.parser.PropertiesParser;
 
 
-//@SpringBootApplication
-public class Program implements CommandLineRunner
+@SpringBootApplication
+public class Program
 {
-    private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private IBookDAO<Books> bookDAO;
-
     public static void main(String[] args)
     {
         SpringApplication.run(Program.class, args);
     }
 
-    @Override
-    public void run(String[] args) throws Exception {
 //        bookDAO = context.getBean("booksJPA", BooksJPA.class);
 //
 //        System.out.println("1 - Ввести поля сущности и добавить её в таблицу БД");
@@ -87,5 +76,4 @@ public class Program implements CommandLineRunner
 //                }
 //            }
 //        }
-    }
 }

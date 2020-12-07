@@ -1,6 +1,7 @@
 .idea/
 out/
 Apache-Tomcat/
+vlad/
 *.iml
 *.jpg
 
