@@ -1,4 +1,4 @@
-package ru.xorsiphus.dao;
+package ru.xorsiphus.dao.repositories;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import ru.xorsiphus.entity.IEntity;
