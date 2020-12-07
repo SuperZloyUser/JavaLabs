@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("cinemasService")
+<<<<<<< Updated upstream
+=======
+//@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+>>>>>>> Stashed changes
 public class CinemasServiceImpl implements AbstractService
 {
     @Autowired
