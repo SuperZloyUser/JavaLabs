@@ -24,6 +24,18 @@
 <article data-th-text="'Ваше био: ' + ${user.getBiography()}"></article>
 <br/>
 
+<header>
+    <h1 th:align="center">Книги</h1>
+</header>
+<article>
+    <p th:text="'Количество книг в БД: ' + ${count}"></p>
+    <ul>
+        <li><a href="/books">Просмотр книг</a></li>
+        <li th:if="${isAdmin}"><a href="/books/new">Добавить книгу</a></li>
+        <p></p>
+    </ul>
+</article>
+
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти"/>
 </form>

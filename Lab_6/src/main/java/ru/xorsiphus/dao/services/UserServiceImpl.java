@@ -2,10 +2,9 @@ package ru.xorsiphus.dao.services;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import ru.xorsiphus.dao.repositories.UserRepository;
 import ru.xorsiphus.entity.IEntity;
 import ru.xorsiphus.entity.User;
@@ -61,7 +60,11 @@ public class UserServiceImpl implements AbstractService
     public <T extends IEntity> void insert(T entity)
     {
         repository.insert((User) entity);
-        factory.openSession().saveOrUpdate(new UserRole(((User) entity).getUsername(), "USER"));
+        Session session = factory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(new UserRole(((User) entity).getUsername(), "USER"));
+        session.getTransaction().commit();
+        session.close();
     }
 
     public long count()

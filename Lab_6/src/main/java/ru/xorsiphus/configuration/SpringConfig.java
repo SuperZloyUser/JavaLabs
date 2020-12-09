@@ -19,9 +19,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
 
 
 @Configuration
@@ -88,13 +91,13 @@ public class SpringConfig implements WebMvcConfigurer
         return dataSource;
     }
 
-//    @Bean
-//    public FilterRegistrationBean hiddenHttpMethodFilter()
-//    {
-//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
-//        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
-//        return filterRegistrationBean;
-//    }
+    @Bean
+    public FilterRegistrationBean hiddenHttpMethodFilter()
+    {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+        return filterRegistrationBean;
+    }
 
 //    @Bean
 //    public SpringResourceTemplateResolver templateResolver() {

@@ -12,8 +12,6 @@ public interface AbstractService
 
     Optional<? extends IEntity> findById(int id);
 
-    Optional<? extends IEntity> findByUsername(String username);
-
     <T extends IEntity> void updateById(int id, T entity);
 
     <T extends IEntity> void insert(T entity);

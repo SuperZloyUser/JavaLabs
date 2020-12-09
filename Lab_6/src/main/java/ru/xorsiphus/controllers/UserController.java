@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.xorsiphus.dao.services.BookServiceImpl;
 import ru.xorsiphus.dao.services.UserServiceImpl;
 import ru.xorsiphus.entity.User;
-import ru.xorsiphus.entity.UserRole;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -26,10 +27,12 @@ import java.util.stream.Collectors;
 public class UserController
 {
     private final UserServiceImpl userService;
+    private final BookServiceImpl bookService;
 
-    public UserController(@Qualifier("userService") UserServiceImpl UserService)
+    public UserController(@Qualifier("userService") UserServiceImpl UserService, @Qualifier("bookService") BookServiceImpl bookService, PlatformTransactionManager transactionManager)
     {
         this.userService = UserService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/profile")
@@ -41,6 +44,7 @@ public class UserController
         boolean isAdmin = Arrays.asList(user.getAuthorities().toArray())
                 .contains(new SimpleGrantedAuthority("ADMIN"));
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("count", bookService.count());
         return "security/profile";
     }
 
