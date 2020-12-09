@@ -9,11 +9,16 @@
     <h1>Ваш профиль:</h1>
 </header>
 
-<h5 data-th-text="${user.getUsername()}"></h5>
-<br/>
-<article data-th-text="${user.getBiography()}"></article>
+<h2 data-th-text="'Имя пользователя: ' + ${user.getUsername()}"></h2>
+<article>Ваши роли: </article>
+<div th:each="authority : ${springUser.getAuthorities()}">
+    <article th:text="${authority} + '; '"></article>
+</div>
 
-<br/><br/>
+<br/>
+
+<article data-th-text="'Ваше био: ' + ${user.getBiography()}"></article>
+<br/>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти"/>

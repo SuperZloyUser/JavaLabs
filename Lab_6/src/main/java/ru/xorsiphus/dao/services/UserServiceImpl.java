@@ -48,7 +48,7 @@ public class UserServiceImpl implements AbstractService
         return repository.findById(id);
     }
 
-    public Optional<? extends IEntity> findByUsername(String username)
+    public Optional<User> findByUsername(String username)
     {
         return repository.findByUsername(username);
     }

@@ -2,6 +2,7 @@ package ru.xorsiphus.controllers;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +30,11 @@ public class UserController
     }
 
     @GetMapping("/profile")
-    public String getUserProfile(@ModelAttribute("user") User user, Model model)
+    public String getUserProfile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user,
+                                 Model model)
     {
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findByUsername(user.getUsername()).orElse(new User()));
+        model.addAttribute("springUser", user);
         return "security/profile";
     }
 
