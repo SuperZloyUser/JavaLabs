@@ -33,7 +33,7 @@ public class DateParser
         } catch (ParseException e)
         {
             System.out.println(e.getMessage());
-            dateStr = new Date(1);
+            dateStr = new Date(1337);
         }
         return new java.sql.Date(dateStr.getTime());
     }

@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface IBookDAO <T extends IEntity>
 {
     List<T> findAll();
-    List<T> findByAuthor(String author);
     Optional<T> findById(int id);
     void updateById(int id, T books);
     void insert(T books);

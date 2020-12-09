@@ -57,6 +57,16 @@ public class Book implements IEntity
         this.published_on = published_on;
     }
 
+    public Book(String name, String author, String print_edition, int size_in_pages, String published_on)
+    {
+        this.id = 0;
+        this.name = name;
+        this.author = author;
+        this.size_in_pages = size_in_pages;
+        this.print_edition = print_edition;
+        this.published_on = DateParser.parseDate(published_on);
+    }
+
     public Book(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = id;

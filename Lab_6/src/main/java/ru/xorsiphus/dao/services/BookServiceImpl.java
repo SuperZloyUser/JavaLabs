@@ -47,21 +47,6 @@ public class BookServiceImpl implements AbstractService
         return repository.findById(id);
     }
 
-    public List<Book> findByAuthor(String author)
-    {
-        Session session = factory.openSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
-        Root<Book> book = criteriaQuery.from(Book.class);
-        criteriaQuery
-                .select(book)
-                .where(criteriaBuilder.equal(book.get("author"), author))
-                .orderBy(criteriaBuilder.asc(book.get("id")));
-        TypedQuery<Book> query = session.createQuery(criteriaQuery);
-
-        return query.getResultList();
-    }
-
     public <T extends IEntity> void updateById(int id, T entity)
     {
         repository.updateById(id, (Book) entity);
