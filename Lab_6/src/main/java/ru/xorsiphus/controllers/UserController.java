@@ -3,6 +3,7 @@ package ru.xorsiphus.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.xorsiphus.dao.services.UserServiceImpl;
 import ru.xorsiphus.entity.User;
+import ru.xorsiphus.entity.UserRole;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 
@@ -35,6 +38,9 @@ public class UserController
     {
         model.addAttribute("user", userService.findByUsername(user.getUsername()).orElse(new User()));
         model.addAttribute("springUser", user);
+        boolean isAdmin = Arrays.asList(user.getAuthorities().toArray())
+                .contains(new SimpleGrantedAuthority("ADMIN"));
+        model.addAttribute("isAdmin", isAdmin);
         return "security/profile";
     }
 

@@ -17,6 +17,10 @@
 
 <br/>
 
+<article th:if="${isAdmin}" th:text="'Памятка для админа (☞ﾟヮﾟ)☞'"></article>
+
+<br/>
+
 <article data-th-text="'Ваше био: ' + ${user.getBiography()}"></article>
 <br/>
 
