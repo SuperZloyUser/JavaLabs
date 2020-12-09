@@ -80,9 +80,16 @@ public class BooksController
     }
 
     @PostMapping("/filtered")
-    public String viewByFilter(@RequestParam("filter") String filter, Model model)
+    public String viewByFilter(@ModelAttribute("filterAuthor") @Valid FilterAuthor filterAuthor, BindingResult bindingResult, Model model)
     {
-        model.addAttribute("books", bookService.findByAuthor(filter));
+        if (bindingResult.hasErrors())
+        {
+            model.addAttribute("books", bookService.findAll());
+            model.addAttribute("count", bookService.count());
+            return "books/all";
+        }
+
+        model.addAttribute("books", bookService.findByAuthor(filterAuthor.getFilter()));
         return "books/filtered";
     }
 

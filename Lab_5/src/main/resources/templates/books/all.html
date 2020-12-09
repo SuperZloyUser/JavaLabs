@@ -15,9 +15,9 @@
 <br/>
 
 <form th:method="POST" th:action="@{/books/filtered}" th:object="${filterAuthor}">
-    <label for="filterAuthor">Введите название:</label>
+    <label for="filterAuthor">Введите имя автора:</label>
     <input type="text" th:field="*{filter}" id="filterAuthor"/>
-    <div style="color: red" th:if="${#fields.hasErrors('filter')}" th:errors="*{filter}">name</div>
+    <div style="color: red" th:if="${#fields.hasErrors('filter')}" th:errors="*{filter}">filter</div>
     <input type="submit" value="Отсортировать"/>
 </form>
 
