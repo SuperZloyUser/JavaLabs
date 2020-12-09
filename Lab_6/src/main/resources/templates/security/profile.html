@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org" lang="ru">
 <head>
-    <title>Книги</title>
+    <title>Профиль</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
@@ -9,13 +9,11 @@
     <h1>Ваш профиль:</h1>
 </header>
 
+<h5 data-th-text="${user.getUsername()}"></h5>
+<br/>
+<article data-th-text="${user.getBiography()}"></article>
 
-Profile
-<!--<form th:action="@{/login}" method="post">-->
-<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
+<br/><br/>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти"/>

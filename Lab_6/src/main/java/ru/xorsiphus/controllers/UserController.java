@@ -29,8 +29,9 @@ public class UserController
     }
 
     @GetMapping("/profile")
-    public String getUserProfile(@ModelAttribute("user") User user)
+    public String getUserProfile(@ModelAttribute("user") User user, Model model)
     {
+        model.addAttribute("user", user);
         return "security/profile";
     }
 
@@ -45,9 +46,9 @@ public class UserController
     {
         boolean flag = false;
 
-        if (!user.getPassword().equals(user.getRepeat_password()))
+        if (userService.findByUsername(user.getUsername()).isPresent())
         {
-            bindingResult.addError(new FieldError("user", "password", "Пароли не совпадают!"));
+            bindingResult.addError(new FieldError("user", "username", "Такой никнейм уже занят!"));
             var collector = Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage);
             var errors = bindingResult.getFieldErrors().stream().collect(collector);
             model.mergeAttributes(errors);
@@ -57,6 +58,15 @@ public class UserController
         if (user.getUsername().length() < 2 || user.getUsername().length() > 30)
         {
             bindingResult.addError(new FieldError("user", "username", "Некорректное имя пользователя (2-30 символов)"));
+            var collector = Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage);
+            var errors = bindingResult.getFieldErrors().stream().collect(collector);
+            model.mergeAttributes(errors);
+            flag = true;
+        }
+
+        if (!user.getPassword().equals(user.getRepeat_password()))
+        {
+            bindingResult.addError(new FieldError("user", "password", "Пароли не совпадают!"));
             var collector = Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage);
             var errors = bindingResult.getFieldErrors().stream().collect(collector);
             model.mergeAttributes(errors);
@@ -75,7 +85,7 @@ public class UserController
         if (flag)
             return "security/registration";
 
-//        userService.insert(user);
+        userService.insert(user);
 
         return "security/authentication";
     }

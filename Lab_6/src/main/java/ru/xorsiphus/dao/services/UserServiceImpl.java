@@ -2,11 +2,14 @@ package ru.xorsiphus.dao.services;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import ru.xorsiphus.dao.repositories.UserRepository;
 import ru.xorsiphus.entity.IEntity;
 import ru.xorsiphus.entity.User;
+import ru.xorsiphus.entity.UserRole;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -45,6 +48,11 @@ public class UserServiceImpl implements AbstractService
         return repository.findById(id);
     }
 
+    public Optional<? extends IEntity> findByUsername(String username)
+    {
+        return repository.findByUsername(username);
+    }
+
     public <T extends IEntity> void updateById(int id, T entity)
     {
         repository.updateById(id, (User) entity);
@@ -53,6 +61,7 @@ public class UserServiceImpl implements AbstractService
     public <T extends IEntity> void insert(T entity)
     {
         repository.insert((User) entity);
+        factory.openSession().saveOrUpdate(new UserRole(((User) entity).getUsername(), "USER"));
     }
 
     public long count()

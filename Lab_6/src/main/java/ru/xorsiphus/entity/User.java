@@ -1,11 +1,14 @@
 package ru.xorsiphus.entity;
 
+import ru.xorsiphus.parser.PasswordChecker;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity(name = "user")
 @Table(name = "users")
+@PasswordChecker
 public class User implements IEntity
 {
 

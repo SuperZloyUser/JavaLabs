@@ -13,7 +13,7 @@
     <div><label> Имя пользователя : <input type="text" name="username"/> </label></div>
     <div><label> Пароль: <input type="password" name="password"/> </label></div>
     <div style="color: red" th:if="${param.error}">Неверное имя пользователя или пароль!</div>
-    <div th:if="${param.logout}">Вы вышли из системы!</div>
+    <div style="color: green" th:if="${param.logout}">Вы вышли из системы!</div>
     <div><input type="submit" value="Войти"/></div>
 </form>
 
