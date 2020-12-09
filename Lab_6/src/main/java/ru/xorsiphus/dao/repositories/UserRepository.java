@@ -4,30 +4,30 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.xorsiphus.entity.Book;
+import ru.xorsiphus.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
-@Qualifier("bookJPA")
-@Repository("bookJPA")
-public interface BooksJPA extends JpaRepository<Book, Integer>, IBookDAO<Book>
+@Qualifier("userRepository")
+@Repository("userRepository")
+public interface UserRepository extends JpaRepository<User, Integer>, AbstractRepository<User>
 {
-    List<Book> findAll();
+    List<User> findAll();
 
-    Optional<Book> findById(int id);
+    Optional<User> findById(int id);
 
     @Transactional
-    default void updateById(int id, Book book)
+    default void updateById(int id, User user)
     {
-        book.setId(id);
-        save(book);
+        user.setId(id);
+        save(user);
     }
 
     @Transactional
-    default void insert(Book book)
+    default void insert(User user)
     {
-        save(book);
+        save(user);
     }
 
     @Transactional

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
 import javax.persistence.EntityManagerFactory;
@@ -18,11 +19,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 
 @Configuration
 @ComponentScan("ru.xorsiphus.controllers")
@@ -33,12 +33,17 @@ import java.util.Arrays;
 public class SpringConfig implements WebMvcConfigurer
 {
     private final Environment env;
-    private final ApplicationContext applicationContext;
 
     @Autowired
-    public SpringConfig(ApplicationContext applicationContext, Environment env) {
-        this.applicationContext = applicationContext;
+    public SpringConfig(Environment env)
+    {
         this.env = env;
+    }
+
+    public void addViewControllers(ViewControllerRegistry registry)
+    {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/login").setViewName("security/authentication");
     }
 
     @Bean
@@ -83,13 +88,13 @@ public class SpringConfig implements WebMvcConfigurer
         return dataSource;
     }
 
-    @Bean
-    public FilterRegistrationBean hiddenHttpMethodFilter()
-    {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
-        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
-        return filterRegistrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean hiddenHttpMethodFilter()
+//    {
+//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
+//        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+//        return filterRegistrationBean;
+//    }
 
 //    @Bean
 //    public SpringResourceTemplateResolver templateResolver() {

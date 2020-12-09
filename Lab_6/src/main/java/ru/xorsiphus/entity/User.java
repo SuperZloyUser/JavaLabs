@@ -23,8 +23,12 @@ public class User implements IEntity
     private String biography;
 
     @Column
+    @NotNull
     @Size(min = 3, max = 30, message = "Некорректная длина пароля")
     private String password;
+
+    @Transient
+    private String repeat_password;
 
     public User()
     {
@@ -35,6 +39,14 @@ public class User implements IEntity
         this.username = username;
         this.biography = biography;
         this.password = password;
+    }
+
+    public User(String username, String biography, String password, String repeat_password)
+    {
+        this.username = username;
+        this.biography = biography;
+        this.password = password;
+        this.repeat_password = repeat_password;
     }
 
     public User(int id, String username, String biography, String password)
@@ -68,6 +80,16 @@ public class User implements IEntity
     public String getPassword()
     {
         return password;
+    }
+
+    public String getRepeat_password()
+    {
+        return repeat_password;
+    }
+
+    public void setRepeat_password(String repeat_password)
+    {
+        this.repeat_password = repeat_password;
     }
 
     public void setPassword(String password)

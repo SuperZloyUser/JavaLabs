@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface IBookDAO <T extends IEntity>
+public interface AbstractRepository<T extends IEntity>
 {
     List<T> findAll();
     Optional<T> findById(int id);

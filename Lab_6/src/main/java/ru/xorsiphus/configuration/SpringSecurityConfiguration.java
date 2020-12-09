@@ -8,45 +8,73 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
+//    private final PasswordEncoder passwordEncoder;
+//    final DataSource dataSource;
+
+//    @Bean
+//    public PasswordEncoder getPasswordEncoder()
+//    {
+////        return new BCryptPasswordEncoder(8);
+//        return NoOpPasswordEncoder.getInstance();
+//    }
+
+
+
+//    public SpringSecurityConfiguration(DataSource dataSource)
+//    {
+//        this.dataSource = dataSource;
+//    }
+
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception
+//    {
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+//                .usersByUsernameQuery(
+//                        "select username, password, true from users where username=?");
+//    }
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception
+    {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/", "/registration").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
+//                    .successForwardUrl("/profile")
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll();
+//        http.authorizeRequests()
+//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/**").permitAll()
+//                .and().formLogin();
     }
 
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
 
-        var encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        System.out.println(encoder.encode("password"));
-
         UserDetails user =
-                User.builder()
-                        .passwordEncoder(encoder::encode)
-//                        .passwordEncoder(pass -> "super" + pass + "encoded")
-                        .username("user")
-                        .password(encoder.encode("password"))
+                User
+                        .withDefaultPasswordEncoder()
+                        .username("u")
+                        .password("123")
                         .roles("USER")
                         .build();
-
 
         return new InMemoryUserDetailsManager(user);
     }
