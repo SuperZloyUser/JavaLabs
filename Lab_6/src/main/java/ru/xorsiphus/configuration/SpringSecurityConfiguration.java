@@ -75,12 +75,5 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .and()
                     .logout()
                     .permitAll();
-
-//        http.authorizeRequests()
-//                    .antMatchers("/profile").hasRole("USER")
-//                    .antMatchers("/**").permitAll()
-//                .and()
-//                    .formLogin()
-//                        .permitAll();
     }
 }
