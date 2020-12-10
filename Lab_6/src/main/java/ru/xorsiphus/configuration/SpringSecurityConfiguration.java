@@ -3,21 +3,19 @@ package ru.xorsiphus.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     final DataSource dataSource;
@@ -58,8 +56,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .authoritiesByUsernameQuery(
                         "select username, role from user_aut " +
                                 "where username=?");
-//                .usersByUsernameQuery(
-//                        "select username, password, true from users where username=?");
     }
 
     @Override
@@ -68,8 +64,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
         http
                 .authorizeRequests()
                     .antMatchers("/", "/registration").permitAll()
-                    .antMatchers("/books").hasAnyRole("USER", "ADMIN")
-                    .antMatchers("/books/**").hasRole("ADMIN")
+                    .antMatchers("/books").hasAnyAuthority("USER", "ADMIN")
+//                    .antMatchers("/books/new").hasAuthority("ADMIN")
+//                    .antMatchers("/books/**/edit").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -78,6 +75,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .and()
                     .logout()
                     .permitAll();
+
 //        http.authorizeRequests()
 //                    .antMatchers("/profile").hasRole("USER")
 //                    .antMatchers("/**").permitAll()
