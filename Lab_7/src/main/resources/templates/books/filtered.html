@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Идентификатор</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Издание</th>
+        <th>Размер в страницах</th>
+        <th>Дата публикации</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td data-th-text="${book.getId()}" ></td>
+        <td data-th-text="${book.getName()}"></td>
+        <td data-th-text="${book.getAuthor()}"></td>
+        <td data-th-text="${book.getPrint_edition()}"></td>
+        <td data-th-text="${book.getSize_in_pages()}"></td>
+        <td data-th-text="${book.getPublished_on()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+<footer>
+    <hr>
+    <a href="/">Main</a>
+</footer>
+</html>

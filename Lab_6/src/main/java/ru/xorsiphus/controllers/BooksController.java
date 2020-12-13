@@ -26,7 +26,7 @@ public class BooksController
         this.bookService = bookService;
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping
     public String viewAll(Model model)
     {
@@ -36,7 +36,7 @@ public class BooksController
         return "books/all";
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public String viewOne(@PathVariable("id") int id, Model model)
     {
@@ -88,7 +88,7 @@ public class BooksController
         return "redirect:/books";
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @PostMapping("/filtered")
     public String viewByFilter(@ModelAttribute("filterAuthor") @Valid FilterAuthor filterAuthor, BindingResult bindingResult, Model model)
     {

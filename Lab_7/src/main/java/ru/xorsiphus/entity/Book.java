@@ -1,38 +1,53 @@
 package ru.xorsiphus.entity;
 
-import ru.xorsiphus.dao.second.db.services.AbstractService;
-import ru.xorsiphus.dao.second.db.services.CinemasServiceImpl;
 import ru.xorsiphus.parser.DateParser;
 import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
-@Entity(name = "books")
+@Entity(name = "book")
 @Table(name = "books")
-public class Books implements IEntity
+public class Book implements IEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private int id;
+
+    @NotNull(message = "Имя не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Некорректная длина имени")
     @Column(nullable = false)
     private String name;
+
+    @NotNull(message = "Имя автора не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Некорректная длина имени автора")
     @Column(nullable = false)
     private String author;
+
+
     @Column
+    @Size(min = 2, max = 30, message = "Некорректная длина названия издания")
     private String print_edition;
+
+    @NotNull(message = "Размер не должен быть пустым")
+    @Min(value = 1, message = "Некорректный размер книги")
     @Column(nullable = false)
     private int size_in_pages;
+
+
     @Column
     private Date published_on;
 
-    public Books()
+    public Book()
     {
 
     }
 
-    public Books(String name, String author, String print_edition, int size_in_pages, Date published_on)
+    public Book(String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = 0;
         this.name = name;
@@ -42,7 +57,17 @@ public class Books implements IEntity
         this.published_on = published_on;
     }
 
-    public Books(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
+    public Book(String name, String author, String print_edition, int size_in_pages, String published_on)
+    {
+        this.id = 0;
+        this.name = name;
+        this.author = author;
+        this.size_in_pages = size_in_pages;
+        this.print_edition = print_edition;
+        this.published_on = DateParser.parseDate(published_on);
+    }
+
+    public Book(int id, String name, String author, String print_edition, int size_in_pages, Date published_on)
     {
         this.id = id;
         this.name = name;
@@ -52,9 +77,9 @@ public class Books implements IEntity
         this.published_on = published_on;
     }
 
-    public static Books parser()
+    public static Book parser()
     {
-        return new Books(
+        return new Book(
                 new PropertiesParser<String>()
                         .hasMessage("Название: ")
                         .hasChecker(string -> !string.isBlank())
@@ -78,16 +103,6 @@ public class Books implements IEntity
                         .hasParser(DateParser::parseDate)
                         .readCycle()
         );
-    }
-
-    public String getEntityRepositoryClassName()
-    {
-        return "booksJPA";
-    }
-
-    public AbstractService getEntityClass()
-    {
-        return new CinemasServiceImpl();
     }
 
     public int getId()

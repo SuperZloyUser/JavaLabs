@@ -2,6 +2,8 @@ package ru.xorsiphus.controllers;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,10 +13,9 @@ import ru.xorsiphus.entity.Book;
 import ru.xorsiphus.parser.forms.FilterAuthor;
 
 import javax.validation.Valid;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Controller
+@PreAuthorize("hasAuthority('USER')")
 @RequestMapping("/books")
 public class BooksController
 {
@@ -25,6 +26,7 @@ public class BooksController
         this.bookService = bookService;
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping
     public String viewAll(Model model)
     {
@@ -34,6 +36,7 @@ public class BooksController
         return "books/all";
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public String viewOne(@PathVariable("id") int id, Model model)
     {
@@ -41,7 +44,8 @@ public class BooksController
         return "books/single";
     }
 
-    @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping
     public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult)
     {
         if (bindingResult.hasErrors())
@@ -51,12 +55,14 @@ public class BooksController
         return "redirect:/books";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/new")
     public String addBook(@ModelAttribute("book") Book book)
     {
         return "books/new";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}/edit")
     public String editBook(@PathVariable("id") int id, Model model)
     {
@@ -64,6 +70,7 @@ public class BooksController
         return "books/edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, @PathVariable("id") int id)
     {
@@ -73,13 +80,15 @@ public class BooksController
         return "redirect:/books";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id)
+    public String delete(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, @PathVariable("id") int id)
     {
         bookService.removeById(id);
         return "redirect:/books";
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @PostMapping("/filtered")
     public String viewByFilter(@ModelAttribute("filterAuthor") @Valid FilterAuthor filterAuthor, BindingResult bindingResult, Model model)
     {

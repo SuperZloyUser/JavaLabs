@@ -35,7 +35,6 @@ public class ProgramSecondDB implements CommandLineRunner
             System.out.println(ticket[0] + " - " + ticket[1]);
         }
 
-
         while (true)
         {
             IEntity entity = entityChooser();

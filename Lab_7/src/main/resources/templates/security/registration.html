@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Регистрация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header>
+    <h1>Регистрация:</h1>
+</header>
+
+
+<form th:method="POST" th:action="@{/registration}" th:object="${user}">
+    <div>
+        <label> Имя пользователя:
+            <input type="text" th:field="*{username}" id="name"/>
+            <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</div>
+        </label>
+    </div>
+    <div>
+        <label> Пароль:
+            <input type="text" th:field="*{password}" id="password"/>
+            <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password</div>
+        </label>
+    </div>
+    <div>
+        <label> Повтор пароля:
+            <input type="text" th:field="*{repeat_password}" id="repeat_password"/>
+            <div style="color: red" th:if="${#fields.hasErrors('repeat_password')}" th:errors="*{repeat_password}">repeat_password</div>
+        </label>
+    </div>
+    <div>
+        <label> Биография:
+            <input type="text" th:field="*{biography}" id="biography"/>
+            <div style="color: red" th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}">biography</div>
+        </label>
+    </div>
+    <div><input type="submit" value="Зарегистрироваться"/></div>
+</form>
+
+<footer>
+    <hr>
+    <a href="/">Main</a>
+</footer>
+</body>
+</html>
