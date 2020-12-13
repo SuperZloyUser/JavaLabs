@@ -1,40 +1,58 @@
 package ru.xorsiphus.parser;
 
-import java.sql.Date;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class DateParser
 {
-    public static Date parseDate(String s) throws NumberFormatException
+    public static boolean parseDate(String s) throws NumberFormatException
     {
-        Date res;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
         try
         {
-            res = _parseDate(s);
+            Date date = formatter.parse(s);
+
+            var day = s.substring(0, 1);
+            try
+            {
+                day += Integer.parseInt(s.substring(1, 2));
+            } catch (Exception ignored)
+            {
+            }
+
+            var month = "";
+            try
+            {
+                month += Integer.parseInt(s.substring(2, 3));
+            } catch (Exception ignored)
+            {
+            }
+
+            try
+            {
+                month += Integer.parseInt(s.substring(3, 4));
+            } catch (Exception ignored)
+            {
+            }
+
+            try
+            {
+                month += Integer.parseInt(s.substring(4, 5));
+            } catch (Exception ignored)
+            {
+            }
+
+            return Integer.parseInt(day) <= 31 &&
+                    Integer.parseInt(month) <= 12;
         } catch (ParseException e)
         {
-            res = new Date(0);
-            System.out.println(e.getMessage());
+//            e.printStackTrace();
+            return false;
         }
-
-        return res;
     }
 
-    private static Date _parseDate(String s) throws ParseException
-    {
-        SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date dateStr;
-
-        try
-        {
-            dateStr = parser.parse(s);
-        } catch (ParseException e)
-        {
-            System.out.println(e.getMessage());
-            dateStr = new Date(1);
-        }
-        return new java.sql.Date(dateStr.getTime());
-    }
 }

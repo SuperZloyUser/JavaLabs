@@ -1,12 +1,11 @@
 package ru.xorsiphus.parser;
 
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.sql.Date;
 
-public class DateValidation implements ConstraintValidator<DateChecker, Date>
+public class DateValidator implements ConstraintValidator<DateChecker, String>
 {
+
     @Override
     public void initialize(DateChecker constraintAnnotation)
     {
@@ -14,8 +13,8 @@ public class DateValidation implements ConstraintValidator<DateChecker, Date>
     }
 
     @Override
-    public boolean isValid(Date date, ConstraintValidatorContext constraintValidatorContext)
+    public boolean isValid(String date, ConstraintValidatorContext constraintValidatorContext)
     {
-        return true;
+        return DateParser.parseDate(date);
     }
 }

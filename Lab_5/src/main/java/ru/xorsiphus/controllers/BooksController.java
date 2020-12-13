@@ -11,8 +11,6 @@ import ru.xorsiphus.entity.Book;
 import ru.xorsiphus.parser.forms.FilterAuthor;
 
 import javax.validation.Valid;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Controller
 @RequestMapping("/books")
