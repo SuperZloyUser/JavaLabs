@@ -9,6 +9,7 @@ public interface AbstractService
 {
     List<? extends IEntity> findAll();
 
+    List<? extends IEntity> findByAuthor(String author);
 
     Optional<? extends IEntity> findById(int id);
 

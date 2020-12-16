@@ -3,8 +3,15 @@ package ru.xorsiphus.configuration;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+
+import javax.persistence.EntityManagerFactory;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.sql.DataSource;
+
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
@@ -15,13 +22,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import java.util.Arrays;
-
 
 @Configuration
 @ComponentScan("ru.xorsiphus.controllers")
@@ -32,17 +39,12 @@ import java.util.Arrays;
 public class SpringConfig implements WebMvcConfigurer
 {
     private final Environment env;
+    private final ApplicationContext applicationContext;
 
     @Autowired
-    public SpringConfig(Environment env)
-    {
+    public SpringConfig(ApplicationContext applicationContext, Environment env) {
+        this.applicationContext = applicationContext;
         this.env = env;
-    }
-
-    public void addViewControllers(ViewControllerRegistry registry)
-    {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/login").setViewName("security/authentication");
     }
 
     @Bean

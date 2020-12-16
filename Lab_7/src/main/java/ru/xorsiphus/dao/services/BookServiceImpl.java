@@ -1,16 +1,18 @@
 package ru.xorsiphus.dao.services;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.xorsiphus.dao.repositories.BooksRepository;
+import ru.xorsiphus.dao.repositories.BooksJPA;
 import ru.xorsiphus.entity.Book;
 import ru.xorsiphus.entity.IEntity;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +21,10 @@ import java.util.Optional;
 @Service("bookServiceImpl")
 public class BookServiceImpl implements AbstractService
 {
-    private final BooksRepository repository;
+    private final BooksJPA repository;
     private final SessionFactory factory;
 
-    public BookServiceImpl(@Qualifier("bookRepository") BooksRepository repository, SessionFactory factory)
+    public BookServiceImpl(@Qualifier("bookJPA") BooksJPA repository, SessionFactory factory)
     {
         this.repository = repository;
         this.factory = factory;

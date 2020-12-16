@@ -2,7 +2,8 @@ package ru.xorsiphus.controllers;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +29,21 @@ public class BooksController
     }
 
 //    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    @GetMapping
+    @RequestMapping(value="/", method=RequestMethod.GET, headers =
+          {"Accept=html/text"})
     public String viewAll(Model model)
     {
         model.addAttribute("books", bookService.findAll());
         model.addAttribute("count", bookService.count());
         model.addAttribute("filterAuthor", new FilterAuthor());
         return "books/all";
+    }
+
+    @RequestMapping(value="/", method=RequestMethod.GET, headers =
+            {"Accept=application/json"})
+    public @ResponseBody ResponseEntity<List<Book>> viewAll()
+    {
+        return new ResponseEntity<List<Book>>(bookService.findAll(), HttpStatus.OK);
     }
 
 //    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")

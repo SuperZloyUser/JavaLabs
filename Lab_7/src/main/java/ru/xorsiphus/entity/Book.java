@@ -1,11 +1,14 @@
 package ru.xorsiphus.entity;
 
 import ru.xorsiphus.parser.DateChecker;
+import ru.xorsiphus.parser.DateParser;
+import ru.xorsiphus.parser.PropertiesParser;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Entity(name = "book")
 @Table(name = "books")
