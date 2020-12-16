@@ -4,7 +4,6 @@ package ru.xorsiphus.controllers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +28,9 @@ public class BooksController
     }
 
 //    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    @RequestMapping(value="/", method=RequestMethod.GET, headers =
-          {"Accept=html/text"})
+//    @RequestMapping(method=RequestMethod.GET, headers =
+//          {"Accept=html/text"})
+    @GetMapping
     public String viewAll(Model model)
     {
         model.addAttribute("books", bookService.findAll());
@@ -39,7 +39,7 @@ public class BooksController
         return "books/all";
     }
 
-    @RequestMapping(value="/", method=RequestMethod.GET, headers =
+    @RequestMapping(method=RequestMethod.GET, headers =
             {"Accept=application/json"})
     public @ResponseBody ResponseEntity<List<Book>> viewAll()
     {
@@ -108,7 +108,7 @@ public class BooksController
 
 //    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public String delete(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, @PathVariable("id") int id)
+    public String delete(@PathVariable("id") int id)
     {
         bookService.removeById(id);
         return "redirect:/books";

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get request calculator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="${firstParam} + ' ' + ${operation} + ' ' + ${secondParam} + ' = ' + ${answer}"></p>
+<p></p>
+<p></p>
+<a href="/">Main</a>
+</body>
+<footer>
+    <hr>
+    <a href="/hello">Hello tests</a>
+    <p></p>
+    <p>Calculator ('sum'; '-'; '*'; '/')</p>
+    <p>/calculator?firstParam=2&secondParam=2&operation=sum</p>
+    <p></p>
+    <a href="/">Main</a>
+</footer>
+</html>
