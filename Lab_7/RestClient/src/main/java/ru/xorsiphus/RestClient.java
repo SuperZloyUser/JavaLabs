@@ -4,6 +4,9 @@ import org.springframework.web.client.RestTemplate;
 
 public class RestClient
 {
+    // Входные аргументы определяют параметры запроса:
+    // * Цифра = id сущности
+    // * Пустой = все сущности
     public static void main( String[] args )
     {
         var param = "0";

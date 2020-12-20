@@ -1,6 +1,5 @@
+// Скрипт, получающий все сущности и выводящий их в удобном формате
 const request = require('request');
-
-// console.log(request.get('http://localhost:8081/books/1').auth('admin', '123', false));
  
 const options = 
 {

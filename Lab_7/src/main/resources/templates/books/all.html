@@ -18,7 +18,7 @@
     <label for="filterAuthor">Введите имя автора:</label>
     <input type="text" th:field="*{filter}" id="filterAuthor"/>
     <div style="color: red" th:if="${#fields.hasErrors('filter')}" th:errors="*{filter}">filter</div>
-    <input type="submit" value="Отсортировать"/>
+    <input type="submit" value="Отфильтровать"/>
 </form>
 
 <br/>
