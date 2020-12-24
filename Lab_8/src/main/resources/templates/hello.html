@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'"></p>
+<a href="/hello?name=Test">Hello with "Test"</a>
+</body>
+<footer>
+    <hr>
+    <a href="/hello">Hello tests</a>
+    <p></p>
+    <p>Calculator ('sum'; '-'; '*'; '/')</p>
+    <p>/calculator?firstParam=2&secondParam=2&operation=sum</p>
+    <p></p>
+    <a href="/">Main</a>
+</footer>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Книги</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header>
+    <h1 th:align="center">Книги</h1>
+</header>
+<article>
+    <p th:text="'Количество книг в БД: ' + ${count}"></p>
+    <ul>
+        <li><a href="/books">Просмотр книг</a></li>
+        <li><a href="/books/new">Добавить книгу</a></li>
+        <p></p>
+    </ul>
+</article>
+<footer>
+    <hr>
+    <a href="/hello">Hello tests</a>
+    <p></p>
+    <p>Calculator ('sum'; '-'; '*'; '/')</p>
+    <p>/calculator?firstParam=2&secondParam=2&operation=sum</p>
+    <p></p>
+    <a href="/">Main</a>
+</footer>
+</body>
+</html>

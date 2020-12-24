@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Идентификатор</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Издание</th>
+        <th>Размер в страницах</th>
+        <th>Дата публикации</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td data-th-text="${book.getId()}" ></td>
+        <td data-th-text="${book.getName()}"></td>
+        <td data-th-text="${book.getAuthor()}"></td>
+        <td data-th-text="${book.getPrint_edition()}"></td>
+        <td data-th-text="${book.getSize_in_pages()}"></td>
+        <td data-th-text="${book.getPublished_on()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/books/{id}/edit(id=${book.getId()})}" th:text="Редактировать"></a>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+
+</body>
+<footer>
+    <hr>
+    <a href="/hello">Hello tests</a>
+    <p></p>
+    <p>Calculator ('sum'; '-'; '*'; '/')</p>
+    <p>/calculator?firstParam=2&secondParam=2&operation=sum</p>
+    <p></p>
+    <a href="/">Main</a>
+</footer>
+</html>
